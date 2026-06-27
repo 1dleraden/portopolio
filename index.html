@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Putra Raden Al Aziz | Portofolio Programmer</title>
+    <meta name="description" content="Portofolio pribadi Putra Raden Al Aziz, berfokus pada pengembangan web, desain, dan teknologi modern." />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">ajies</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#tentang" class="nav-link active">Tentang</a></li>
+                <li><a href="#skill" class="nav-link">Skill</a></li>
+                <li><a href="#proyek" class="nav-link">Proyek</a></li>
+                <li><a href="#kontak" class="nav-link">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="tentang">
+        <div class="container hero-grid">
+            <div class="hero-copy reveal">
+                <p class="eyebrow">Portofolio • Web Developer • Game Dev</p>
+                <h1><span id="typeName" class="name-accent" aria-live="polite"></span></h1>
+                <p class="tagline">Mengubah ide menjadi pengalaman digital yang terasa hidup.</p>
+                <p class="intro">
+                    Saya adalah siswa pengembangan perangkat lunak dan gim yang antusias membangun website modern, cepat, dan ramah pengguna.
+                </p>
+                <div class="hero-actions">
+                    <a href="#proyek" class="btn btn-primary">Lihat Proyek</a>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/1dleraden" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a>
+                    <a href="https://instagram.com/ptrraden_" target="_blank" rel="noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@1dleraden" target="_blank" rel="noreferrer"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="hero-card reveal">
+                <div class="hero-image">
+                    <img src="wowo.jpg" alt="Foto profil Putra Raden Al Aziz" />
+                </div>
+                <div class="hero-badge">Available for freelance & collaboration</div>
+                <div class="hero-stats">
+                    <div>
+                        <strong>3+</strong>
+                        <span>Tahun belajar</span>
+                    </div>
+                    <div>
+                        <strong>10+</strong>
+                        <span>Proyek pribadi</span>
+                    </div>
+                    <div>
+                        <strong>100%</strong>
+                        <span>Dedikasi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section about" id="about">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Tentang Saya</p>
+                    <h2>Memadukan teknologi, desain, dan ide kreatif.</h2>
+                </div>
+
+                <div class="about-grid">
+                    <article class="card reveal">
+                        <h3>Biografi Singkat</h3>
+                        <p>
+                            Saya terbiasa belajar melalui eksperimen, membangun proyek kecil, dan memperbaiki alur kerja agar hasilnya lebih rapi dan efektif.
+                        </p>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <span>2023 — Sekarang</span>
+                                <h4>Belajar web development & game development</h4>
+                                <p>Membuat UI yang modern, memahami logika pemrograman, dan mengeksekusi ide menjadi produk nyata.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <span>2024 — Sekarang</span>
+                                <h4>Fokus pada frontend dan desain UI</h4>
+                                <p>Menjaga pengalaman pengguna tetap ringan, estetis, dan responsif di berbagai perangkat.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card reveal">
+                        <h3>Fakta Menarik</h3>
+                        <ul class="fact-list">
+                            <li>Suka memecah masalah kompleks menjadi bagian yang sederhana.</li>
+                            <li>Sering menggabungkan logika coding dengan estetika visual.</li>
+                            <li>Senang belajar teknologi baru melalui praktik langsung.</li>
+                        </ul>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <strong>7/10</strong>
+                                <span>UI Focus</span>
+                            </div>
+                            <div class="stat-card">
+                                <strong>8/10</strong>
+                                <span>Problem Solving</span>
+                            </div>
+                            <div class="stat-card">
+                                <strong>9/10</strong>
+                                <span>Consistency</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section skills" id="skill">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Skill</p>
+                    <h2>Teknologi yang saya kuasai.</h2>
+                </div>
+
+                <div class="skills-grid">
+                    <article class="skill-card reveal">
+                        <h3><i class="fas fa-code"></i> Frontend</h3>
+                        <div class="skill-list">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>Tailwind</span>
+                        </div>
+                    </article>
+                    <article class="skill-card reveal">
+                        <h3><i class="fas fa-server"></i> Backend</h3>
+                        <div class="skill-list">
+                            <span>PHP</span>
+                            <span>Node.js</span>
+                            <span>Python</span>
+                        </div>
+                    </article>
+                    <article class="skill-card reveal">
+                        <h3><i class="fas fa-database"></i> Database</h3>
+                        <div class="skill-list">
+                            <span>MySQL</span>
+                            <span>SQLite</span>
+                        </div>
+                    </article>
+                    <article class="skill-card reveal">
+                        <h3><i class="fas fa-tools"></i> Tools</h3>
+                        <div class="skill-list">
+                            <span>VS Code</span>
+                            <span>GitHub</span>
+                            <span>Docker</span>
+                            <span>Canva</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section projects" id="proyek">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Proyek</p>
+                    <h2>Beberapa karya yang sedang saya bangun.</h2>
+                </div>
+
+                <div class="project-grid">
+                    <article class="project-card reveal">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" alt="Contoh proyek web developer" />
+                        <div class="project-body">
+                            <div class="project-top">
+                                <h3>Portfolio Modern</h3>
+                                <p>Website portofolio dengan nuansa premium, dark mode, dan animasi halus.</p>
+                            </div>
+                            <div class="tech-list">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="btn btn-small">Live Demo</a>
+                                <a href="https://github.com/1dleraden" class="btn btn-small btn-ghost" target="_blank" rel="noreferrer">GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal">
+                        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80" alt="Contoh proyek aplikasi" />
+                        <div class="project-body">
+                            <div class="project-top">
+                                <h3>Aplikasi Manajemen Tugas</h3>
+                                <p>Solusi simpel untuk mengatur aktivitas harian dengan tata letak yang bersih dan intuitif.</p>
+                            </div>
+                            <div class="tech-list">
+                                <span>PHP</span>
+                                <span>MySQL</span>
+                                <span>Bootstrap</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="btn btn-small">Live Demo</a>
+                                <a href="https://github.com/1dleraden" class="btn btn-small btn-ghost" target="_blank" rel="noreferrer">GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Contoh proyek game" />
+                        <div class="project-body">
+                            <div class="project-top">
+                                <h3>Game Prototype</h3>
+                                <p>Prototype game sederhana yang fokus pada gameplay, interaksi, dan pengalaman penggunanya.</p>
+                            </div>
+                            <div class="tech-list">
+                                <span>Python</span>
+                                <span>Game Dev</span>
+                                <span>UI</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="#" class="btn btn-small">Live Demo</a>
+                                <a href="https://github.com/1dleraden" class="btn btn-small btn-ghost" target="_blank" rel="noreferrer">GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pengalaman section removed per user request -->
+
+        <section class="section contact" id="kontak">
+            <div class="container contact-grid">
+                <article class="card reveal">
+                    <p class="eyebrow">Kontak</p>
+                    <h2>Yuk, kolaborasi bersama.</h2>
+                    <p>Jika ingin membangun website, aplikasi, atau proyek kreatif lainnya, saya siap berdiskusi.</p>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-envelope"></i> putraradenn247@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +62 838 7764 1571</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Bogor, Indonesia</li>
+                    </ul>
+                </article>
+
+                <form class="card contact-form reveal">
+                    <label>
+                        Nama
+                        <input type="text" placeholder="Nama Anda" />
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" placeholder="email@domain.com" />
+                    </label>
+                    <label>
+                        Pesan
+                        <textarea rows="5" placeholder="Ceritakan ide proyek Anda..."></textarea>
+                    </label>
+                    <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>© 2026 Putra Raden Al Aziz. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://github.com/1dleraden" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a>
+                <a href="https://instagram.com/ptrraden_" target="_blank" rel="noreferrer"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const sections = document.querySelectorAll('section[id], header[id]');
+        const navItems = document.querySelectorAll('.nav-link');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('open');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 120;
+                if (window.scrollY >= top) {
+                    current = section.id;
+                }
+            });
+
+            navItems.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+
+        const revealItems = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealItems.forEach(item => observer.observe(item));
+
+        // ===== TYPEWRITER FOR NAME =====
+        (function() {
+            const typeEl = document.getElementById('typeName');
+            if (!typeEl) return;
+            const nameText = 'PUTRA RADEN AL AZIZ';
+            const typingSpeed = 90;
+            const erasingSpeed = 50;
+            const delayAfterTyping = 1200;
+            const delayAfterErasing = 400;
+            let idx = 0;
+            let isErasing = false;
+
+            function updateText() {
+                if (!isErasing && idx <= nameText.length) {
+                    typeEl.textContent = nameText.slice(0, idx);
+                    idx++;
+                    if (idx <= nameText.length) {
+                        setTimeout(updateText, typingSpeed);
+                    } else {
+                        setTimeout(() => {
+                            isErasing = true;
+                            idx = nameText.length;
+                            updateText();
+                        }, delayAfterTyping);
+                    }
+                } else if (isErasing && idx >= 0) {
+                    typeEl.textContent = nameText.slice(0, idx);
+                    idx--;
+                    if (idx >= 0) {
+                        setTimeout(updateText, erasingSpeed);
+                    } else {
+                        setTimeout(() => {
+                            isErasing = false;
+                            idx = 0;
+                            updateText();
+                        }, delayAfterErasing);
+                    }
+                }
+            }
+
+            setTimeout(updateText, 500);
+        })();
+    </script>
+</body>
+</html>
