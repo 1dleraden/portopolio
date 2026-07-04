@@ -235,8 +235,6 @@
             </div>
         </section>
 
-        <!-- Pengalaman section removed per user request -->
-
         <section class="section contact" id="kontak">
             <div class="container contact-grid">
                 <article class="card reveal">
@@ -344,6 +342,9 @@
             const delayAfterErasing = 400;
             let idx = 0;
             let isErasing = false;
+
+            // Hapus cursor dengan meng-override CSS
+            typeEl.style.setProperty('--cursor-display', 'none');
 
             function updateText() {
                 if (!isErasing && idx <= nameText.length) {
