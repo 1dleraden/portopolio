@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { 
   X, 
   Sparkles, 
@@ -24,20 +24,54 @@ import { topArtists } from '@/data/artistsData';
 export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
   const [selectedArtistId, setSelectedArtistId] = useState('taylor-swift');
   const [playingTrackTitle, setPlayingTrackTitle] = useState(null);
+  const [isRendered, setIsRendered] = useState(isOpen);
+  const [isClosing, setIsClosing] = useState(false);
+  const closeTimerRef = useRef(null);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen) {
+      setIsRendered(true);
+      setIsClosing(false);
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    } else if (isRendered && !isClosing) {
+      setIsClosing(true);
+      closeTimerRef.current = setTimeout(() => {
+        setIsRendered(false);
+        setIsClosing(false);
+      }, 260);
+    }
+  }, [isOpen]);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = setTimeout(() => {
+      setIsRendered(false);
+      setIsClosing(false);
+      onClose();
+    }, 260);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    };
+  }, []);
+
+  if (!isRendered && !isOpen) return null;
 
   const currentArtist = topArtists.find(a => a.id === selectedArtistId) || topArtists[0];
 
   const handlePlaySong = (song) => {
-    if (song.playable && onPlayTrack) {
-      onPlayTrack(song);
+    if (onPlayTrack) {
+      onPlayTrack(song, currentArtist);
       setPlayingTrackTitle(song.title);
     }
   };
 
   return (
     <div
+      className="top-artists-modal-overlay"
       style={{
         position: 'fixed',
         inset: 0,
@@ -48,12 +82,13 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
         padding: '1rem',
         backgroundColor: 'rgba(0, 0, 0, 0.85)',
         backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)'
+        WebkitBackdropFilter: 'blur(16px)',
+        animation: isClosing ? 'modalFadeOut 0.26s cubic-bezier(0.4, 0, 0.2, 1) forwards' : 'modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards'
       }}
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
-        className="glass-card"
+        className="glass-card modal-glass-card"
         style={{
           width: '100%',
           maxWidth: '860px',
@@ -65,7 +100,7 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
-          animation: 'modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+          animation: isClosing ? 'modalSlideDown 0.26s cubic-bezier(0.4, 0, 0.2, 1) forwards' : 'modalSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards'
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -107,7 +142,7 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
           </div>
 
           <button
-            onClick={onClose}
+            onClick={handleClose}
             style={{
               background: 'rgba(255, 255, 255, 0.06)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -312,17 +347,34 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                   <div
                     key={song.rank}
                     className="glass-card"
+                    onClick={() => handlePlaySong(song)}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '1.15rem',
                       padding: '1rem 1.25rem',
                       borderRadius: 'var(--radius-lg)',
-                      background: 'rgba(255, 255, 255, 0.02)',
+                      background: isSelectedTrack ? 'rgba(34, 211, 238, 0.08)' : 'rgba(255, 255, 255, 0.02)',
                       border: isSelectedTrack ? `1.5px solid ${currentArtist.accentColor}` : '1px solid rgba(255, 255, 255, 0.08)',
                       boxShadow: isSelectedTrack ? `0 0 20px ${currentArtist.color}40` : 'none',
-                      transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+                      cursor: 'pointer',
+                      transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
                     }}
+                    onMouseEnter={(e) => {
+                      if (!isSelectedTrack) {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+                        e.currentTarget.style.borderColor = `${currentArtist.accentColor}60`;
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isSelectedTrack) {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }
+                    }}
+                    title={`Klik untuk putar ${song.title}`}
                   >
                     {/* Rank Badge #1 - #5 */}
                     <div
@@ -330,26 +382,26 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                         width: '38px',
                         height: '38px',
                         borderRadius: '10px',
-                        background: song.rank === 1 ? `linear-gradient(135deg, ${currentArtist.color}, ${currentArtist.accentColor})` : 'rgba(255, 255, 255, 0.06)',
-                        border: song.rank === 1 ? 'none' : '1px solid rgba(255, 255, 255, 0.12)',
+                        background: isSelectedTrack ? '#22d3ee' : (song.rank === 1 ? `linear-gradient(135deg, ${currentArtist.color}, ${currentArtist.accentColor})` : 'rgba(255, 255, 255, 0.06)'),
+                        border: song.rank === 1 || isSelectedTrack ? 'none' : '1px solid rgba(255, 255, 255, 0.12)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontFamily: 'var(--font-mono)',
                         fontWeight: 900,
                         fontSize: '1rem',
-                        color: song.rank === 1 ? '#ffffff' : '#a1a1aa',
+                        color: isSelectedTrack ? '#000000' : (song.rank === 1 ? '#ffffff' : '#a1a1aa'),
                         flexShrink: 0,
-                        boxShadow: song.rank === 1 ? `0 0 15px ${currentArtist.color}70` : 'none'
+                        boxShadow: isSelectedTrack ? '0 0 15px rgba(34, 211, 238, 0.5)' : (song.rank === 1 ? `0 0 15px ${currentArtist.color}70` : 'none')
                       }}
                     >
-                      {song.rank}
+                      {isSelectedTrack ? <Volume2 size={18} /> : song.rank}
                     </div>
 
                     {/* Track Details */}
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff' }}>
+                        <span style={{ fontSize: '1.05rem', fontWeight: 800, color: isSelectedTrack ? '#22d3ee' : '#ffffff' }}>
                           {song.title}
                         </span>
                         {song.feat && (
@@ -395,17 +447,32 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                         {song.duration}
                       </span>
 
-                      {song.playable && (
-                        <button
-                          onClick={() => handlePlaySong(song)}
-                          className="btn btn-sm btn-primary"
-                          style={{ padding: '0.4rem 0.85rem', fontSize: '0.78rem' }}
-                          title="Putar Lagu Ini di Pemutar"
-                        >
-                          <Play size={13} fill="#000" />
-                          <span>Putar</span>
-                        </button>
-                      )}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePlaySong(song);
+                        }}
+                        className="btn btn-sm btn-primary"
+                        style={{
+                          padding: '0.4rem 0.85rem',
+                          fontSize: '0.78rem',
+                          background: isSelectedTrack ? '#22d3ee' : undefined,
+                          color: isSelectedTrack ? '#000000' : undefined
+                        }}
+                        title={`Putar ${song.title} di Pemutar`}
+                      >
+                        {isSelectedTrack ? (
+                          <>
+                            <Volume2 size={13} />
+                            <span>Memutar</span>
+                          </>
+                        ) : (
+                          <>
+                            <Play size={13} fill="#000" />
+                            <span>Putar</span>
+                          </>
+                        )}
+                      </button>
                     </div>
                   </div>
                 );
@@ -430,7 +497,7 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
           </span>
 
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="btn btn-secondary btn-sm"
           >
             Tutup
@@ -439,14 +506,35 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
       </div>
 
       <style jsx>{`
+        @keyframes modalFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes modalFadeOut {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+
         @keyframes modalSlideUp {
           from {
             opacity: 0;
-            transform: translateY(20px) scale(0.97);
+            transform: translateY(24px) scale(0.96);
           }
           to {
             opacity: 1;
             transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes modalSlideDown {
+          from {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(20px) scale(0.96);
           }
         }
       `}</style>

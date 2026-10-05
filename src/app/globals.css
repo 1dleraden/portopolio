@@ -382,6 +382,40 @@ h1, h2, h3, h4, h5, h6 {
   to { transform: rotate(360deg); }
 }
 
+@keyframes playerEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes playerExit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.92);
+    filter: blur(8px);
+  }
+}
+
+.player-card-opening {
+  animation: playerEnter 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.player-card-closing {
+  animation: playerExit 0.26s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 .animate-float {
   animation: float 4.5s ease-in-out infinite;
 }

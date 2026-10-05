@@ -19,7 +19,9 @@ export const topArtists = [
         year: '2020',
         duration: '4:45',
         vibe: 'Melancholic Piano & Harmony Masterpiece',
-        note: 'Duet emosional dengan Justin Vernon (Bon Iver), perpaduan piano lembut dan vokal kontras yang magis.'
+        note: 'Duet emosional dengan Justin Vernon (Bon Iver), perpaduan piano lembut dan vokal kontras yang magis.',
+        src: '/music/exile.mp3',
+        playable: true
       },
       {
         rank: 2,
@@ -28,7 +30,9 @@ export const topArtists = [
         year: '2020',
         duration: '4:21',
         vibe: 'Nostalgic Summer Breeze & Yearning',
-        note: 'Kisah cinta musim panas dengan instrumentasi string yang mengalir bebas dan bridge yang ikonik.'
+        note: 'Kisah cinta musim panas dengan instrumentasi string yang mengalir bebas dan bridge yang ikonik.',
+        src: '/music/august.mp3',
+        playable: true
       },
       {
         rank: 3,
@@ -37,7 +41,9 @@ export const topArtists = [
         year: '2020',
         duration: '3:59',
         vibe: 'Indie Folk Magic & Cozy Melancholy',
-        note: '"And when I felt like I was an old cardigan under someone\'s bed, you put me on and said I was your favorite."'
+        note: '"And when I felt like I was an old cardigan under someone\'s bed, you put me on and said I was your favorite."',
+        src: '/music/cardigan.mp3',
+        playable: true
       },
       {
         rank: 4,
@@ -46,7 +52,9 @@ export const topArtists = [
         year: '2024',
         duration: '3:47',
         vibe: 'Heartfelt Poetic Farewell & Beat Pulse',
-        note: 'Track 5 yang emosional dengan synth cepat dan lirik pelepasan diri yang menyentuh kalbu.'
+        note: 'Track 5 yang emosional dengan synth cepat dan lirik pelepasan diri yang menyentuh kalbu.',
+        src: '/music/so-long-london.mp3',
+        playable: true
       },
       {
         rank: 5,

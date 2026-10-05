@@ -24,6 +24,7 @@ import { topArtists } from '@/data/artistsData';
 export default function MusicPlayer({ autoPlay = false }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [playerTab, setPlayerTab] = useState('player'); // 'player' | 'artists'
   const [selectedArtistId, setSelectedArtistId] = useState('taylor-swift');
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,6 +39,75 @@ export default function MusicPlayer({ autoPlay = false }) {
   const synthTimerRef = useRef(null);
   const stepRef = useRef(0);
   const hasMountedRef = useRef(false);
+  const closeTimeoutRef = useRef(null);
+  const playerRootRef = useRef(null);
+
+  // Smooth open / close handlers with exit animations
+  const handleOpen = (tab = null) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    if (tab) setPlayerTab(tab);
+    setIsClosing(false);
+    setIsExpanded(true);
+  };
+
+  const handleClose = () => {
+    if (!isExpanded || isClosing) return;
+    setIsClosing(true);
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsExpanded(false);
+      setIsClosing(false);
+    }, 260); // 260ms matches exit animation duration
+  };
+
+  const handleToggleExpand = () => {
+    if (isExpanded && !isClosing) {
+      handleClose();
+    } else {
+      handleOpen();
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Close player when clicking outside or pressing Escape
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        isExpanded &&
+        !isClosing &&
+        playerRootRef.current &&
+        !playerRootRef.current.contains(e.target)
+      ) {
+        if (e.target.closest && (e.target.closest('.top-artists-modal-overlay') || e.target.closest('.modal-glass-card'))) {
+          return;
+        }
+        handleClose();
+      }
+    };
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isExpanded && !isClosing && !modalOpen) {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isExpanded, isClosing, modalOpen]);
 
   // Global listener to open Top Artists modal from anywhere on page
   useEffect(() => {
@@ -62,6 +132,16 @@ export default function MusicPlayer({ autoPlay = false }) {
     },
     {
       id: 2,
+      title: 'exile',
+      artist: 'Taylor Swift feat. Bon Iver',
+      album: 'folklore',
+      cover: '/artists/taylor-swift.png',
+      src: '/music/exile.mp3',
+      genre: 'Indie Alternative • Folk-Pop',
+      isAudioFile: true
+    },
+    {
+      id: 3,
       title: 'Midnight Code',
       artist: 'ajies • Lo-Fi Beats',
       genre: 'Lo-Fi / Focus Chill',
@@ -75,7 +155,7 @@ export default function MusicPlayer({ autoPlay = false }) {
       ]
     },
     {
-      id: 3,
+      id: 4,
       title: 'Cyber Odyssey',
       artist: 'ajies • Synthwave',
       genre: 'Retro 80s Cyberpunk',
@@ -90,17 +170,70 @@ export default function MusicPlayer({ autoPlay = false }) {
     }
   ];
 
-  const currentTrack = playlist[currentTrackIndex];
+  const [activeTrack, setActiveTrack] = useState(playlist[0]);
+  const currentTrack = activeTrack;
   const selectedArtist = topArtists.find(a => a.id === selectedArtistId) || topArtists[0];
 
-  // Procedural synthesizer fallback for ambient tracks
-  const playSynthStep = (step) => {
+  // Artist specific chord progressions for procedural preview
+  const getArtistChords = (artistId) => {
+    switch (artistId) {
+      case 'taylor-swift':
+        return [
+          [261.63, 329.63, 392.00, 493.88], // Cmaj7
+          [196.00, 246.94, 293.66, 392.00], // G
+          [220.00, 261.63, 329.63, 440.00], // Am7
+          [174.61, 220.00, 261.63, 349.23]  // Fmaj7
+        ];
+      case 'dewa-19':
+        return [
+          [146.83, 220.00, 293.66, 369.99], // Dm
+          [116.54, 174.61, 233.08, 293.66], // Bb
+          [174.61, 220.00, 261.63, 349.23], // F
+          [130.81, 196.00, 261.63, 329.63]  // C
+        ];
+      case 'bruno-mars':
+        return [
+          [155.56, 196.00, 233.08, 293.66], // Ebmaj7
+          [146.83, 174.61, 220.00, 261.63], // Dm7
+          [196.00, 233.08, 293.66, 349.23], // Gm7
+          [130.81, 164.81, 196.00, 246.94]  // Cm7
+        ];
+      case 'hindia':
+        return [
+          [174.61, 220.00, 261.63, 349.23], // F
+          [130.81, 164.81, 196.00, 261.63], // C
+          [196.00, 246.94, 293.66, 392.00], // G
+          [220.00, 261.63, 329.63, 440.00]  // Am
+        ];
+      default:
+        return [
+          [220.00, 261.63, 329.63, 392.00],
+          [174.61, 220.00, 261.63, 329.63],
+          [261.63, 329.63, 392.00, 493.88],
+          [196.00, 246.94, 293.66, 349.23]
+        ];
+    }
+  };
+
+  const getArtistBpm = (artistId) => {
+    switch (artistId) {
+      case 'bruno-mars': return 104;
+      case 'dewa-19': return 84;
+      case 'taylor-swift': return 76;
+      case 'hindia': return 88;
+      default: return 80;
+    }
+  };
+
+  // Procedural synthesizer step player
+  const playSynthStepCustom = (step, track) => {
     if (!audioCtxRef.current || audioCtxRef.current.state === 'suspended') return;
     const ctx = audioCtxRef.current;
-    if (!currentTrack.chords) return;
+    const chords = (track && track.chords) || currentTrack.chords;
+    if (!chords || chords.length === 0) return;
 
-    const chordIndex = Math.floor(step / 4) % currentTrack.chords.length;
-    const chord = currentTrack.chords[chordIndex];
+    const chordIndex = Math.floor(step / 4) % chords.length;
+    const chord = chords[chordIndex];
     const beatInChord = step % 4;
 
     if (beatInChord === 0) {
@@ -130,13 +263,97 @@ export default function MusicPlayer({ autoPlay = false }) {
     });
   };
 
+  // Instant Play function for any song clicked
+  const playSong = (song, artist = null) => {
+    // 1. Stop any currently active audio / synth immediately
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    if (synthTimerRef.current) {
+      clearInterval(synthTimerRef.current);
+      synthTimerRef.current = null;
+    }
+
+    const artistObj = artist || topArtists.find(a => a.id === selectedArtistId) || topArtists[0];
+    const audioSrc = song.src || (song.title === 'Laskar Cinta' ? '/music/laskar-cinta.mp3' : null);
+
+    if (song.duration && typeof song.duration === 'string' && song.duration.includes(':')) {
+      const parts = song.duration.split(':');
+      const totalSecs = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+      if (!isNaN(totalSecs) && totalSecs > 0) {
+        setDuration(totalSecs);
+      }
+    }
+
+    const newTrack = {
+      id: `song-${artistObj.id}-${song.rank || song.title}`,
+      title: song.title,
+      artist: artistObj.name + (song.feat ? ` ${song.feat}` : ''),
+      album: song.album || 'Featured Hits',
+      cover: artistObj.photo || artistObj.cover || '/artists/dewa19.jpg',
+      src: audioSrc,
+      genre: artistObj.genre || 'Pop / Rock',
+      isAudioFile: Boolean(audioSrc),
+      duration: song.duration || '3:30',
+      vibe: song.vibe || '',
+      chords: getArtistChords(artistObj.id),
+      bpm: getArtistBpm(artistObj.id)
+    };
+
+    setActiveTrack(newTrack);
+    setPlaybackTime(0);
+    stepRef.current = 0;
+
+    if (newTrack.isAudioFile) {
+      const audio = audioRef.current;
+      if (audio) {
+        audio.src = newTrack.src;
+        audio.currentTime = 0;
+        audio.volume = isMuted ? 0 : volume;
+        audio.muted = isMuted;
+
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => setIsPlaying(true))
+            .catch(() => {
+              audio.load();
+              audio.play().then(() => setIsPlaying(true)).catch(() => {});
+            });
+        }
+      }
+    } else {
+      // Procedural synthesizer preview with actual audio notes
+      try {
+        if (!audioCtxRef.current) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioCtxRef.current = new AudioContext();
+        }
+        if (audioCtxRef.current.state === 'suspended') {
+          audioCtxRef.current.resume();
+        }
+      } catch (e) {}
+
+      setIsPlaying(true);
+      const stepInterval = (60 / (newTrack.bpm || 80)) * 1000 * 0.5;
+      playSynthStepCustom(0, newTrack);
+      stepRef.current = 1;
+
+      synthTimerRef.current = setInterval(() => {
+        playSynthStepCustom(stepRef.current, newTrack);
+        stepRef.current++;
+        setPlaybackTime((prev) => (prev + 1) % 150);
+      }, stepInterval);
+    }
+  };
+
   const togglePlay = () => {
     const audio = audioRef.current;
 
     if (currentTrack.isAudioFile) {
       if (!audio) return;
 
-      if (!audio.paused) {
+      if (!audio.paused && isPlaying) {
         audio.pause();
         setIsPlaying(false);
       } else {
@@ -180,7 +397,7 @@ export default function MusicPlayer({ autoPlay = false }) {
         if (synthTimerRef.current) clearInterval(synthTimerRef.current);
 
         synthTimerRef.current = setInterval(() => {
-          playSynthStep(stepRef.current);
+          playSynthStepCustom(stepRef.current, currentTrack);
           stepRef.current++;
           setPlaybackTime((prev) => (prev + 1) % 150);
         }, stepInterval);
@@ -195,8 +412,7 @@ export default function MusicPlayer({ autoPlay = false }) {
 
     const nextIdx = (currentTrackIndex + 1) % playlist.length;
     setCurrentTrackIndex(nextIdx);
-    setPlaybackTime(0);
-    stepRef.current = 0;
+    playSong(playlist[nextIdx]);
   };
 
   const prevTrack = () => {
@@ -206,25 +422,8 @@ export default function MusicPlayer({ autoPlay = false }) {
 
     const prevIdx = (currentTrackIndex - 1 + playlist.length) % playlist.length;
     setCurrentTrackIndex(prevIdx);
-    setPlaybackTime(0);
-    stepRef.current = 0;
+    playSong(playlist[prevIdx]);
   };
-
-  // Only switch audio source when track changes after initial mount
-  useEffect(() => {
-    if (!hasMountedRef.current) {
-      hasMountedRef.current = true;
-      return;
-    }
-
-    if (audioRef.current && currentTrack.isAudioFile) {
-      audioRef.current.src = currentTrack.src;
-      audioRef.current.load();
-      if (isPlaying) {
-        audioRef.current.play().catch(() => {});
-      }
-    }
-  }, [currentTrackIndex]);
 
   // Volume synchronization
   useEffect(() => {
@@ -309,6 +508,7 @@ export default function MusicPlayer({ autoPlay = false }) {
 
   return (
     <div
+      ref={playerRootRef}
       style={{
         position: 'fixed',
         bottom: '24px',
@@ -340,10 +540,10 @@ export default function MusicPlayer({ autoPlay = false }) {
         }}
       />
 
-      {/* Expanded Music Player Card */}
-      {isExpanded && (
+      {/* Expanded Music Player Card with Open & Close Animation */}
+      {(isExpanded || isClosing) && (
         <div
-          className="glass-card"
+          className={`glass-card music-expanded-card ${isClosing ? 'player-card-closing' : 'player-card-opening'}`}
           style={{
             width: playerTab === 'artists' ? '360px' : '330px',
             maxWidth: 'calc(100vw - 32px)',
@@ -353,6 +553,8 @@ export default function MusicPlayer({ autoPlay = false }) {
             background: 'rgba(10, 10, 13, 0.98)',
             border: '1px solid rgba(255, 255, 255, 0.16)',
             boxShadow: '0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 255, 255, 0.05)',
+            transformOrigin: 'bottom left',
+            pointerEvents: isClosing ? 'none' : 'auto',
             transition: 'width 0.2s ease'
           }}
         >
@@ -386,19 +588,35 @@ export default function MusicPlayer({ autoPlay = false }) {
                 <span>Showcase</span>
               </button>
               <button
-                onClick={() => setIsExpanded(false)}
+                onClick={handleClose}
                 style={{
-                  background: 'transparent',
-                  border: 'none',
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: '6px',
                   color: 'var(--text-muted)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  padding: '2px'
+                  justifyContent: 'center',
+                  width: '26px',
+                  height: '26px',
+                  padding: 0,
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
-                title="Kecilkan Pemutar"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.transform = 'translateY(1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+                  e.currentTarget.style.color = 'var(--text-muted)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+                title="Kecilkan / Tutup Pemutar"
+                aria-label="Tutup Pemutar"
               >
-                <ChevronDown size={18} />
+                <ChevronDown size={17} />
               </button>
             </div>
           </div>
@@ -463,8 +681,33 @@ export default function MusicPlayer({ autoPlay = false }) {
           {playerTab === 'player' ? (
             /* TAB 1: NOW PLAYING CONTROLS */
             <>
-              {/* Track Display with spinning disk / album cover */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
+              {/* Track Display with spinning disk / album cover - Clickable to instantly Play */}
+              <div
+                onClick={togglePlay}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  marginBottom: '1.25rem',
+                  cursor: 'pointer',
+                  padding: '0.45rem',
+                  borderRadius: '16px',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                  e.currentTarget.style.transform = 'scale(1.01)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+                title={isPlaying ? 'Klik untuk Jeda Musik' : 'Klik untuk Putar Musik'}
+              >
                 <div
                   style={{
                     width: '64px',
@@ -842,100 +1085,108 @@ export default function MusicPlayer({ autoPlay = false }) {
                   paddingRight: '2px'
                 }}
               >
-                {selectedArtist.topSongs.map((song) => (
-                  <div
-                    key={song.rank}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '0.45rem 0.6rem',
-                      borderRadius: '8px',
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
-                      transition: 'all 0.15s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                      e.currentTarget.style.borderColor = `${selectedArtist.accentColor}40`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', minWidth: 0, flex: 1 }}>
-                      <div
-                        style={{
-                          width: '22px',
-                          height: '22px',
-                          borderRadius: '6px',
-                          background: song.rank === 1 ? `linear-gradient(135deg, ${selectedArtist.color}, ${selectedArtist.accentColor})` : 'rgba(255, 255, 255, 0.08)',
-                          color: '#ffffff',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '0.68rem',
-                          fontWeight: 800,
-                          fontFamily: 'var(--font-mono)',
-                          flexShrink: 0
-                        }}
-                      >
-                        0{song.rank}
-                      </div>
-                      <div style={{ minWidth: 0, flex: 1 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                            {song.title}
-                          </span>
-                          {song.feat && (
-                            <span style={{ fontSize: '0.65rem', color: '#a1a1aa', whiteSpace: 'nowrap' }}>
-                              {song.feat}
+                {selectedArtist.topSongs.map((song) => {
+                  const isCurrentPlaying = currentTrack.title === song.title && isPlaying;
+                  return (
+                    <div
+                      key={song.rank}
+                      onClick={() => playSong(song, selectedArtist)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '0.5rem 0.65rem',
+                        borderRadius: '10px',
+                        background: isCurrentPlaying ? 'rgba(34, 211, 238, 0.12)' : 'rgba(255, 255, 255, 0.03)',
+                        border: isCurrentPlaying ? '1px solid #22d3ee' : '1px solid rgba(255, 255, 255, 0.06)',
+                        cursor: 'pointer',
+                        transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isCurrentPlaying) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                          e.currentTarget.style.borderColor = `${selectedArtist.accentColor}50`;
+                          e.currentTarget.style.transform = 'translateX(2px)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isCurrentPlaying) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                        }
+                      }}
+                      title={`Klik untuk putar ${song.title}`}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', minWidth: 0, flex: 1 }}>
+                        <div
+                          style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '6px',
+                            background: isCurrentPlaying ? '#22d3ee' : (song.rank === 1 ? `linear-gradient(135deg, ${selectedArtist.color}, ${selectedArtist.accentColor})` : 'rgba(255, 255, 255, 0.08)'),
+                            color: isCurrentPlaying ? '#000000' : '#ffffff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '0.68rem',
+                            fontWeight: 800,
+                            fontFamily: 'var(--font-mono)',
+                            flexShrink: 0
+                          }}
+                        >
+                          {isCurrentPlaying ? <Volume2 size={12} /> : `0${song.rank}`}
+                        </div>
+                        <div style={{ minWidth: 0, flex: 1 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: isCurrentPlaying ? '#22d3ee' : '#ffffff', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                              {song.title}
                             </span>
-                          )}
+                            {song.feat && (
+                              <span style={{ fontSize: '0.65rem', color: '#a1a1aa', whiteSpace: 'nowrap' }}>
+                                {song.feat}
+                              </span>
+                            )}
+                          </div>
+                          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            {song.album} ({song.year})
+                          </div>
                         </div>
-                        <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                          {song.album} ({song.year})
-                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexShrink: 0 }}>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (isCurrentPlaying) {
+                              togglePlay();
+                            } else {
+                              playSong(song, selectedArtist);
+                            }
+                          }}
+                          style={{
+                            background: isCurrentPlaying ? '#22d3ee' : 'rgba(255, 255, 255, 0.1)',
+                            border: 'none',
+                            color: isCurrentPlaying ? '#000000' : '#ffffff',
+                            borderRadius: '9999px',
+                            padding: '0.25rem 0.55rem',
+                            fontSize: '0.64rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '3px',
+                            transition: 'all 0.15s'
+                          }}
+                          title={isCurrentPlaying ? 'Jeda Lagu' : `Putar ${song.title}`}
+                        >
+                          {isCurrentPlaying ? <Pause size={9} fill="#000" /> : <Play size={9} fill={isCurrentPlaying ? '#000' : '#fff'} />}
+                          <span>{isCurrentPlaying ? 'Pause' : 'Putar'}</span>
+                        </button>
                       </div>
                     </div>
-
-                    {song.playable ? (
-                      <button
-                        onClick={() => {
-                          setCurrentTrackIndex(0);
-                          if (audioRef.current) {
-                            audioRef.current.currentTime = 0;
-                            audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-                          }
-                        }}
-                        style={{
-                          background: '#22d3ee',
-                          border: 'none',
-                          color: '#000000',
-                          borderRadius: '9999px',
-                          padding: '0.2rem 0.5rem',
-                          fontSize: '0.62rem',
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '3px',
-                          flexShrink: 0,
-                          marginLeft: '0.4rem'
-                        }}
-                        title="Putar Lagu Dewa 19 Ini"
-                      >
-                        <Play size={9} fill="#000" />
-                        <span>Putar</span>
-                      </button>
-                    ) : (
-                      <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginLeft: '0.4rem', flexShrink: 0 }}>
-                        {song.duration}
-                      </span>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Bottom modal launcher */}
@@ -1078,8 +1329,7 @@ export default function MusicPlayer({ autoPlay = false }) {
           onClick={(e) => {
             e.stopPropagation();
             setSelectedArtistId('taylor-swift');
-            setPlayerTab('artists');
-            setIsExpanded(true);
+            handleOpen('artists');
           }}
           style={{
             width: '32px',
@@ -1102,15 +1352,15 @@ export default function MusicPlayer({ autoPlay = false }) {
           <Star size={14} fill="#fb7185" />
         </button>
 
-        {/* Expand caret */}
+        {/* Expand caret with rotating animation */}
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setIsExpanded(!isExpanded);
+            handleToggleExpand();
           }}
           style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            border: 'none',
+            background: isExpanded && !isClosing ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
             borderRadius: '50%',
             width: '26px',
             height: '26px',
@@ -1120,13 +1370,24 @@ export default function MusicPlayer({ autoPlay = false }) {
             alignItems: 'center',
             justifyContent: 'center',
             padding: 0,
-            transition: 'all 0.2s'
+            transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'; }}
-          title={isExpanded ? 'Tutup Panel' : 'Buka Pengaturan Audio & Playlist'}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = isExpanded && !isClosing ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.08)'; }}
+          title={isExpanded && !isClosing ? 'Tutup Panel' : 'Buka Pengaturan Audio & Playlist'}
+          aria-label={isExpanded && !isClosing ? 'Tutup Panel' : 'Buka Pengaturan Audio & Playlist'}
         >
-          {isExpanded ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transform: isExpanded && !isClosing ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+          >
+            <ChevronUp size={16} />
+          </div>
         </button>
       </div>
 
@@ -1134,22 +1395,57 @@ export default function MusicPlayer({ autoPlay = false }) {
       <TopArtistsModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        onPlayTrack={(song) => {
-          if (song.playable) {
-            setCurrentTrackIndex(0);
-            if (audioRef.current) {
-              audioRef.current.currentTime = 0;
-              audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-            }
-          }
+        onPlayTrack={(song, artist) => {
+          playSong(song, artist || selectedArtist);
         }}
       />
 
       <style jsx>{`
+        @keyframes playerEnter {
+          0% {
+            opacity: 0;
+            transform: translateY(24px) scale(0.92);
+            filter: blur(8px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+          }
+        }
+
+        @keyframes playerExit {
+          0% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(22px) scale(0.92);
+            filter: blur(8px);
+          }
+        }
+
+        .player-card-opening {
+          animation: playerEnter 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .player-card-closing {
+          animation: playerExit 0.26s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
         @media (max-width: 600px) {
           .music-player-root {
             bottom: 16px !important;
             left: 16px !important;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .player-card-opening,
+          .player-card-closing {
+            animation-duration: 0.01ms !important;
           }
         }
       `}</style>
