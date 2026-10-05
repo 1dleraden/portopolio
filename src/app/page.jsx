@@ -16,6 +16,7 @@ import ResumeModal from '@/components/ResumeModal';
 import MusicPlayer from '@/components/MusicPlayer';
 import Preloader from '@/components/Preloader';
 import ScrollProgressBar from '@/components/ScrollProgressBar';
+import AiChatWidget from '@/components/AiChatWidget';
 
 export default function Home() {
   const [terminalOpen, setTerminalOpen] = useState(false);
@@ -75,6 +76,9 @@ export default function Home() {
 
       {/* Floating Lo-Fi Music Player */}
       <MusicPlayer autoPlay={startMusic} />
+
+      {/* Floating AI Chat Assistant Widget */}
+      <AiChatWidget />
 
       {/* Modals */}
       <DevConsoleModal

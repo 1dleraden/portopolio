@@ -141,18 +141,78 @@ export default function ProjectModal({ project, onClose }) {
           </div>
         </div>
 
+        {/* GitHub Stats & Info if available */}
+        {(project.stars !== undefined || project.forks !== undefined || project.language) && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '1.5rem', padding: '0.75rem 1rem', borderRadius: '10px', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+            {project.language && (
+              <span style={{ fontSize: '0.8rem', color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: project.languageColor || '#38bdf8' }} />
+                {project.language}
+              </span>
+            )}
+            {project.stars !== undefined && (
+              <span style={{ fontSize: '0.8rem', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                ⭐ {project.stars} Stars
+              </span>
+            )}
+            {project.forks !== undefined && (
+              <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                🍴 {project.forks} Forks
+              </span>
+            )}
+            {project.updatedAt && (
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginLeft: 'auto' }}>
+                Diperbarui: {project.updatedAt}
+              </span>
+            )}
+          </div>
+        )}
+
         {/* Actions Footer */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
-          <a
-            href={project.liveUrl || '#'}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-primary"
-            style={{ flex: 1, minWidth: '160px' }}
-          >
-            <span>Buka Live Demo</span>
-            <ExternalLink size={16} />
-          </a>
+          {project.liveUrl === '#game' ? (
+            <button
+              onClick={() => {
+                onClose();
+                const el = document.getElementById('game');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="btn btn-primary"
+              style={{ flex: 1, minWidth: '160px' }}
+            >
+              <span>🎮 Mainkan di Website</span>
+            </button>
+          ) : project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+              style={{ flex: 1, minWidth: '160px' }}
+            >
+              <span>Buka Live Demo</span>
+              <ExternalLink size={16} />
+            </a>
+          ) : (
+            <div
+              style={{
+                flex: 1,
+                minWidth: '160px',
+                padding: '0.65rem 1rem',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                color: 'var(--text-muted)',
+                fontSize: '0.82rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.4rem'
+              }}
+            >
+              <span>💻 Localhost & Database App</span>
+            </div>
+          )}
 
           <a
             href={project.githubUrl || 'https://github.com/1dleraden'}
@@ -162,7 +222,7 @@ export default function ProjectModal({ project, onClose }) {
             style={{ flex: 1, minWidth: '160px' }}
           >
             <GithubIcon size={16} />
-            <span>Kode di GitHub</span>
+            <span>Lihat Repositori di GitHub</span>
           </a>
         </div>
       </div>

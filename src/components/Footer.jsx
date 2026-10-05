@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowUp, Heart } from 'lucide-react';
-import { GithubIcon, InstagramIcon } from './Icons';
+import { GithubIcon, InstagramIcon, TiktokIcon } from './Icons';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -90,6 +90,30 @@ export default function Footer() {
               aria-label="Instagram"
             >
               <InstagramIcon size={18} />
+            </a>
+
+            <a
+              href="https://tiktok.com/@usrrad3n"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                width: '38px',
+                height: '38px',
+                borderRadius: '50%',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#22d3ee'; e.currentTarget.style.background = 'rgba(34, 211, 238, 0.2)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'; }}
+              aria-label="TikTok"
+              title="TikTok (@usrrad3n)"
+            >
+              <TiktokIcon size={18} />
             </a>
 
             <button

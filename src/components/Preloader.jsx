@@ -15,6 +15,9 @@ export default function Preloader({ onComplete }) {
     if (hasExitedRef.current) return;
     hasExitedRef.current = true;
     setIsExiting(true);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('trigger-lanyard-drop'));
+    }
     if (onComplete) onComplete();
     setTimeout(() => {
       setIsMounted(false);

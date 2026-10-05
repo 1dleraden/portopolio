@@ -27,7 +27,11 @@ export default function SmoothScroll({ children }) {
                 node.closest('.music-player-root') ||
                 node.closest('.music-expanded-card') ||
                 node.closest('.top-artists-modal-overlay') ||
-                node.closest('.modal-glass-card'))))
+                node.closest('.modal-glass-card') ||
+                node.closest('.ai-chat-modal') ||
+                node.closest('.ai-chat-messages') ||
+                node.closest('.comments-scroll-container') ||
+                node.closest('.suara-pengunjung-card'))))
         );
       }
     });

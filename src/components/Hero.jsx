@@ -10,7 +10,7 @@ import {
   Check,
   ChevronDown
 } from 'lucide-react';
-import { GithubIcon, InstagramIcon } from './Icons';
+import { GithubIcon, InstagramIcon, TiktokIcon } from './Icons';
 import LanyardCard from './LanyardCard';
 import TechText from './TechText';
 
@@ -238,22 +238,27 @@ export default function Hero({ onOpenGame, onOpenResume }) {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  padding: '0.4rem 0.8rem',
+                  justifyContent: 'center',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '10px',
                   background: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#e2e8f0',
-                  fontSize: '0.8rem',
-                  fontFamily: 'var(--font-mono)',
-                  textDecoration: 'none',
-                  gap: '0.4rem',
+                  color: '#fff',
                   transition: 'all 0.2s'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#22d3ee'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(34, 211, 238, 0.2)';
+                  e.currentTarget.style.borderColor = '#22d3ee';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                }}
+                aria-label="TikTok Profile (@usrrad3n)"
+                title="TikTok (@usrrad3n)"
               >
-                <span>@usrrad3n</span>
-                <ExternalLink size={12} />
+                <TiktokIcon size={18} />
               </a>
             </div>
           </div>

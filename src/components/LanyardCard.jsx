@@ -10,6 +10,10 @@ export default function LanyardCard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
 
+  // Entrance drop animation state: 'initial' -> 'dropping' -> 'settled'
+  const [dropState, setDropState] = useState('initial');
+  const hasDroppedRef = useRef(false);
+
   // Direct DOM Refs for 120 FPS GPU-accelerated motion (ZERO React re-renders during drag/swing!)
   const containerRef = useRef(null);
   const cardRigRef = useRef(null);
@@ -37,6 +41,56 @@ export default function LanyardCard() {
     currRotZ: 0,
     rotZv: 0
   });
+
+  // ============================================================
+  // LANYARD DROP ENTRANCE TRIGGER (SYNCHRONIZED WITH PRELOADER EXIT)
+  // ============================================================
+  useEffect(() => {
+    // If user prefers reduced motion, skip drop animation immediately
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDropState('settled');
+      hasDroppedRef.current = true;
+      return;
+    }
+
+    const triggerDrop = () => {
+      if (hasDroppedRef.current) return;
+      hasDroppedRef.current = true;
+      setDropState('dropping');
+
+      // Impart organic pendulum sway impulse right as the badge hits the bottom overshoot
+      setTimeout(() => {
+        if (physicsRef.current) {
+          physicsRef.current.rotZv = 1.35;
+          physicsRef.current.vy = 3.5;
+        }
+      }, 700);
+
+      // Transition to clean settled state after bounce sequence completes
+      setTimeout(() => {
+        setDropState('settled');
+      }, 1400);
+    };
+
+    window.addEventListener('trigger-lanyard-drop', triggerDrop);
+
+    // Global debug trigger function
+    if (typeof window !== 'undefined') {
+      window.triggerLanyardDrop = triggerDrop;
+    }
+
+    // Safety fallback: ensure card appears even if preloader was dismissed earlier
+    const fallbackTimer = setTimeout(() => {
+      if (!hasDroppedRef.current) {
+        triggerDrop();
+      }
+    }, 2800);
+
+    return () => {
+      window.removeEventListener('trigger-lanyard-drop', triggerDrop);
+      clearTimeout(fallbackTimer);
+    };
+  }, []);
 
   // ============================================================
   // HIGH-FREQUENCY 60/120 FPS GPU RENDERING TICKER
@@ -259,6 +313,7 @@ export default function LanyardCard() {
 
   return (
     <div
+      className={dropState === 'dropping' ? 'lanyard-drop-active' : ''}
       style={{
         position: 'relative',
         display: 'flex',
@@ -268,7 +323,24 @@ export default function LanyardCard() {
         width: '100%',
         maxWidth: '380px',
         margin: '0 auto',
-        paddingTop: '16px'
+        paddingTop: '16px',
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        ...(dropState === 'initial'
+          ? {
+              transform: 'translate3d(0, -960px, 0)',
+              opacity: 0,
+              pointerEvents: 'none'
+            }
+          : dropState === 'dropping'
+          ? {
+              pointerEvents: 'none'
+            }
+          : {
+              transform: 'none',
+              opacity: 1,
+              pointerEvents: 'auto'
+            })
       }}
     >
       {/* ============================================================ */}

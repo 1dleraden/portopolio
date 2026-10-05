@@ -157,21 +157,27 @@ export default function ResumeModal({ isOpen, onClose }) {
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>
-                <strong>TaskForge — Agile Workspace & Board</strong> (Next.js, PHP, MySQL)
+                <strong>Sistem Informasi Perpustakaan SMKN 1 Ciomas (arsyavin)</strong> (Laravel 12, PHP 8.2, MySQL, Tailwind CSS)
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
-                  Aplikasi manajemen tugas tim dengan Kanban dinamis, penghitungan performa otomatis, dan UI SaaS gelap.
+                  Aplikasi otomasi sirkulasi perpustakaan dengan penghitungan denda otomatis, slip peminjaman barcode, dan 18 automated unit/feature tests.
                 </p>
               </div>
               <div>
-                <strong>Cyber Odyssey — 2D Neon Action Platformer</strong> (Python, Pygame)
+                <strong>TechInf — Portal Informasi AI & Coding</strong> (HTML5, CSS3, JavaScript, Vercel)
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
-                  Prototipe gim aksi berkecepatan 60 FPS dengan sistem pertarungan pedang, dash evasion, dan simulasi partikel cuaca.
+                  Portal edukasi teknologi informasi seputar kecerdasan buatan, programming, dan cybersecurity dengan UI modern responsif.
                 </p>
               </div>
               <div>
-                <strong>DevNexus — Code Snippet Studio</strong> (Next.js, Web API)
+                <strong>Cyber Portfolio V2</strong> (Next.js 16, React 19, Canvas 2D, Three.js)
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
-                  Workbench pengujian API dan repositori potongan kode dengan syntax highlighter.
+                  Portofolio interaktif dengan 3D Lanyard Card, Canvas Starfield 2D, Mini-game terintegrasi, dan terminal CLI.
+                </p>
+              </div>
+              <div>
+                <strong>Cyber Odyssey — 2D Neon Action Platformer</strong> (Python / Canvas 2D)
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
+                  Prototipe gim aksi berkecepatan 60 FPS dengan simulasi partikel cuaca neon dan collision physics.
                 </p>
               </div>
             </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Terminal, FileText, Menu, X, Sparkles } from 'lucide-react';
+import { Terminal, FileText, Menu, X, Sparkles, Bot } from 'lucide-react';
 
 export default function Navbar({ onOpenTerminal, onOpenResume }) {
   const [scrolled, setScrolled] = useState(false);
@@ -128,7 +128,7 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
             { id: 'skills', label: 'Keahlian' },
             { id: 'projects', label: 'Proyek' },
             { id: 'game', label: 'Game Arena' },
-            { id: 'contact', label: 'Kontak' }
+            { id: 'contact', label: 'Kritik & Saran' }
           ].map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -168,6 +168,30 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
 
         {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {/* AI Chat Trigger */}
+          <button
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('open-ai-chat'));
+              }
+            }}
+            className="btn btn-secondary btn-sm"
+            title="Tanya Asisten AI Putra Raden"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              padding: '0.5rem 0.85rem',
+              fontSize: '0.82rem',
+              background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(99, 102, 241, 0.12))',
+              borderColor: 'rgba(56, 189, 248, 0.35)',
+              color: '#38bdf8'
+            }}
+          >
+            <Bot size={14} color="#38bdf8" />
+            <span className="hide-mobile">Tanya AI</span>
+          </button>
+
           {/* Terminal Console Trigger */}
           <button
             onClick={onOpenTerminal}
@@ -247,7 +271,7 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
             { id: 'skills', label: 'Keahlian & Tech Stack' },
             { id: 'projects', label: 'Karya Proyek' },
             { id: 'game', label: 'Game Arena' },
-            { id: 'contact', label: 'Hubungi Saya' }
+            { id: 'contact', label: 'Kritik & Saran' }
           ].map((item) => (
             <button
               key={item.id}
@@ -267,6 +291,33 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
               {item.label}
             </button>
           ))}
+
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              if (typeof window !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('open-ai-chat'));
+              }
+            }}
+            style={{
+              textAlign: 'left',
+              background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15))',
+              color: '#38bdf8',
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              padding: '0.75rem 1rem',
+              borderRadius: '8px',
+              fontSize: '0.95rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              marginTop: '0.5rem'
+            }}
+          >
+            <Bot size={18} color="#38bdf8" />
+            <span>Tanya AI Asisten Ajies</span>
+          </button>
         </div>
       )}
 
