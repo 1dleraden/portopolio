@@ -17,7 +17,19 @@ export default function SmoothScroll({ children }) {
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
-      infinite: false
+      infinite: false,
+      prevent: (node) => {
+        return Boolean(
+          node &&
+          (node.classList?.contains('lenis-prevent') ||
+            (node.closest &&
+              (node.closest('[data-lenis-prevent]') ||
+                node.closest('.music-player-root') ||
+                node.closest('.music-expanded-card') ||
+                node.closest('.top-artists-modal-overlay') ||
+                node.closest('.modal-glass-card'))))
+        );
+      }
     });
 
     lenisRef.current = lenis;

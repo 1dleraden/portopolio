@@ -12,7 +12,8 @@ import {
   Heart, 
   Disc, 
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  Volume2
 } from 'lucide-react';
 import { topArtists } from '@/data/artistsData';
 
@@ -21,8 +22,15 @@ import { topArtists } from '@/data/artistsData';
  * Interactive modal showcasing favorite musical artists and their top 5 ranked songs.
  * Clicking any artist displays their curated tracklist with custom rankings, album tags, and curator notes.
  */
-export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
-  const [selectedArtistId, setSelectedArtistId] = useState('taylor-swift');
+export default function TopArtistsModal({ 
+  isOpen, 
+  onClose, 
+  onPlayTrack,
+  currentPlayingTitle = null,
+  isMusicPlaying = false,
+  initialArtistId = 'taylor-swift'
+}) {
+  const [selectedArtistId, setSelectedArtistId] = useState(initialArtistId || 'taylor-swift');
   const [playingTrackTitle, setPlayingTrackTitle] = useState(null);
   const [isRendered, setIsRendered] = useState(isOpen);
   const [isClosing, setIsClosing] = useState(false);
@@ -32,6 +40,9 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
     if (isOpen) {
       setIsRendered(true);
       setIsClosing(false);
+      if (initialArtistId) {
+        setSelectedArtistId(initialArtistId);
+      }
       if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     } else if (isRendered && !isClosing) {
       setIsClosing(true);
@@ -40,7 +51,7 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
         setIsClosing(false);
       }, 260);
     }
-  }, [isOpen]);
+  }, [isOpen, initialArtistId]);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -112,27 +123,29 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
             justifyContent: 'space-between',
             padding: '1.25rem 1.75rem',
             borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-            background: 'rgba(255, 255, 255, 0.02)'
+            background: 'rgba(255, 255, 255, 0.02)',
+            flexShrink: 0
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div
               style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
+                width: '34px',
+                height: '34px',
+                borderRadius: '10px',
                 background: 'linear-gradient(135deg, #f43f5e, #fb7185)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#fff',
-                boxShadow: '0 0 15px rgba(244, 63, 94, 0.4)'
+                boxShadow: '0 0 15px rgba(244, 63, 94, 0.4)',
+                flexShrink: 0
               }}
             >
               <Headphones size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff', lineHeight: 1.2 }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff', lineHeight: 1.25 }}>
                 Top Artist & Lagu Favorit
               </h3>
               <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
@@ -154,7 +167,8 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              transition: 'all 0.2s'
+              transition: 'all 0.2s',
+              flexShrink: 0
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'; }}
@@ -174,7 +188,8 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
             borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
             overflowX: 'auto',
             background: 'rgba(0, 0, 0, 0.4)',
-            scrollbarWidth: 'none'
+            scrollbarWidth: 'none',
+            flexShrink: 0
           }}
         >
           {topArtists.map((artist) => {
@@ -210,7 +225,7 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                   <img
                     src={artist.photo}
                     alt={artist.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
                 </div>
                 <div style={{ textAlign: 'left' }}>
@@ -230,7 +245,9 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
         <div
           style={{
             flex: 1,
+            minHeight: 0,
             overflowY: 'auto',
+            overscrollBehavior: 'contain',
             padding: '1.75rem',
             display: 'flex',
             flexDirection: 'column',
@@ -239,17 +256,20 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
         >
           {/* Artist Hero Header */}
           <div
+            className="top-artists-hero-banner"
             style={{
               padding: '1.75rem',
               borderRadius: 'var(--radius-lg)',
-              background: `linear-gradient(135deg, rgba(20, 20, 26, 0.9), rgba(12, 12, 16, 0.95))`,
-              border: `1px solid ${currentArtist.color}35`,
+              background: `linear-gradient(135deg, rgba(20, 20, 26, 0.95), rgba(12, 12, 16, 0.98))`,
+              border: `1px solid ${currentArtist.color}45`,
               position: 'relative',
               overflow: 'hidden',
               display: 'flex',
               alignItems: 'center',
               gap: '1.5rem',
-              boxShadow: `0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px ${currentArtist.color}15`
+              boxShadow: `0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px ${currentArtist.color}15`,
+              flexShrink: 0,
+              minHeight: 'fit-content'
             }}
           >
             {/* Background Ambient Glow */}
@@ -258,10 +278,10 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                 position: 'absolute',
                 top: 0,
                 right: 0,
-                width: '260px',
-                height: '260px',
+                width: '280px',
+                height: '280px',
                 borderRadius: '50%',
-                background: `radial-gradient(circle, ${currentArtist.color}25 0%, transparent 70%)`,
+                background: `radial-gradient(circle, ${currentArtist.color}30 0%, transparent 70%)`,
                 filter: 'blur(45px)',
                 pointerEvents: 'none'
               }}
@@ -269,9 +289,12 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
 
             {/* Artist Photo */}
             <div
+              className="top-artists-photo"
               style={{
-                width: '90px',
-                height: '90px',
+                width: '92px',
+                height: '92px',
+                minWidth: '92px',
+                minHeight: '92px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 border: `3px solid ${currentArtist.accentColor}`,
@@ -283,13 +306,13 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
               <img
                 src={currentArtist.photo}
                 alt={currentArtist.name}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
 
             {/* Artist Info */}
-            <div style={{ flex: 1, zIndex: 1 }}>
-              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem' }}>
+            <div className="top-artists-info" style={{ flex: 1, minWidth: 0, zIndex: 1 }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.6rem', marginBottom: '0.45rem' }}>
                 <span
                   style={{
                     fontSize: '0.72rem',
@@ -299,7 +322,9 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                     borderRadius: '9999px',
                     background: `${currentArtist.color}25`,
                     color: currentArtist.accentColor,
-                    border: `1px solid ${currentArtist.color}60`
+                    border: `1px solid ${currentArtist.color}60`,
+                    display: 'inline-flex',
+                    alignItems: 'center'
                   }}
                 >
                   {currentArtist.badge}
@@ -309,16 +334,16 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                 </span>
               </div>
 
-              <h2 style={{ fontSize: '1.85rem', fontWeight: 900, color: '#ffffff', marginBottom: '0.4rem', letterSpacing: '-0.02em' }}>
+              <h2 style={{ fontSize: '1.85rem', fontWeight: 900, color: '#ffffff', lineHeight: 1.2, marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
                 {currentArtist.name}
               </h2>
 
-              <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '0.65rem' }}>
+              <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.65rem' }}>
                 {currentArtist.bio}
               </p>
 
               {currentArtist.quote && (
-                <p style={{ fontSize: '0.78rem', color: '#e2e8f0', fontStyle: 'italic', opacity: 0.9 }}>
+                <p style={{ fontSize: '0.78rem', color: '#e2e8f0', fontStyle: 'italic', opacity: 0.9, lineHeight: 1.5 }}>
                   {currentArtist.quote}
                 </p>
               )}
@@ -326,8 +351,8 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
           </div>
 
           {/* Top 5 Songs List */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+          <div style={{ flexShrink: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Sparkles size={16} color={currentArtist.accentColor} />
                 <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)' }}>
@@ -341,7 +366,7 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               {currentArtist.topSongs.map((song) => {
-                const isSelectedTrack = playingTrackTitle === song.title;
+                const isSelectedTrack = (currentPlayingTitle === song.title && isMusicPlaying) || (playingTrackTitle === song.title && isMusicPlaying);
 
                 return (
                   <div
@@ -358,7 +383,8 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                       border: isSelectedTrack ? `1.5px solid ${currentArtist.accentColor}` : '1px solid rgba(255, 255, 255, 0.08)',
                       boxShadow: isSelectedTrack ? `0 0 20px ${currentArtist.color}40` : 'none',
                       cursor: 'pointer',
-                      transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                      transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                      flexShrink: 0
                     }}
                     onMouseEnter={(e) => {
                       if (!isSelectedTrack) {
@@ -374,7 +400,7 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                         e.currentTarget.style.transform = 'translateY(0)';
                       }
                     }}
-                    title={`Klik untuk putar ${song.title}`}
+                    title={isSelectedTrack ? `Klik untuk jeda ${song.title}` : `Klik untuk putar ${song.title}`}
                   >
                     {/* Rank Badge #1 - #5 */}
                     <div
@@ -421,6 +447,26 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                         >
                           {song.album} ({song.year})
                         </span>
+                        {song.playable && (
+                          <span
+                            style={{
+                              fontSize: '0.66rem',
+                              padding: '0.12rem 0.45rem',
+                              borderRadius: '4px',
+                              background: 'rgba(34, 211, 238, 0.12)',
+                              color: '#22d3ee',
+                              border: '1px solid rgba(34, 211, 238, 0.35)',
+                              fontFamily: 'var(--font-mono)',
+                              fontWeight: 700,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '3px'
+                            }}
+                          >
+                            <Music size={10} />
+                            <span>Audio Asli</span>
+                          </span>
+                        )}
                       </div>
 
                       <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.4, marginBottom: '0.35rem' }}>
@@ -459,12 +505,12 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
                           background: isSelectedTrack ? '#22d3ee' : undefined,
                           color: isSelectedTrack ? '#000000' : undefined
                         }}
-                        title={`Putar ${song.title} di Pemutar`}
+                        title={isSelectedTrack ? `Jeda ${song.title}` : `Putar ${song.title} di Pemutar`}
                       >
                         {isSelectedTrack ? (
                           <>
-                            <Volume2 size={13} />
-                            <span>Memutar</span>
+                            <Pause size={13} fill="#000" />
+                            <span>Jeda</span>
                           </>
                         ) : (
                           <>
@@ -493,7 +539,7 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
           }}
         >
           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-            Total 4 Artis Unggulan • 20 Lagu Terkurasi
+            Total {topArtists.length} Artis Unggulan • {topArtists.reduce((acc, a) => acc + a.topSongs.length, 0)} Lagu Terkurasi
           </span>
 
           <button
@@ -535,6 +581,21 @@ export default function TopArtistsModal({ isOpen, onClose, onPlayTrack }) {
           to {
             opacity: 0;
             transform: translateY(20px) scale(0.96);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .top-artists-hero-banner {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 1rem !important;
+            padding: 1.25rem !important;
+          }
+          .top-artists-photo {
+            width: 72px !important;
+            height: 72px !important;
+            min-width: 72px !important;
+            min-height: 72px !important;
           }
         }
       `}</style>

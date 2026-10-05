@@ -21,6 +21,24 @@ import {
 import TopArtistsModal from './TopArtistsModal';
 import { topArtists } from '@/data/artistsData';
 
+const VISUALIZER_BARS = [
+  { max: 14, dur: 0.62, delay: 0.05 },
+  { max: 22, dur: 0.74, delay: 0.18 },
+  { max: 12, dur: 0.54, delay: 0.32 },
+  { max: 26, dur: 0.85, delay: 0.08 },
+  { max: 18, dur: 0.66, delay: 0.22 },
+  { max: 25, dur: 0.78, delay: 0.14 },
+  { max: 15, dur: 0.56, delay: 0.28 },
+  { max: 27, dur: 0.88, delay: 0.02 },
+  { max: 19, dur: 0.68, delay: 0.25 },
+  { max: 13, dur: 0.52, delay: 0.12 },
+  { max: 24, dur: 0.76, delay: 0.30 },
+  { max: 16, dur: 0.60, delay: 0.16 },
+  { max: 23, dur: 0.72, delay: 0.06 },
+  { max: 15, dur: 0.58, delay: 0.24 },
+  { max: 12, dur: 0.50, delay: 0.10 }
+];
+
 export default function MusicPlayer({ autoPlay = false }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -128,45 +146,118 @@ export default function MusicPlayer({ autoPlay = false }) {
       cover: '/artists/dewa19.jpg',
       src: '/music/laskar-cinta.mp3',
       genre: 'Pop Rock Indonesia • New Version',
+      duration: '5:17',
       isAudioFile: true
     },
     {
       id: 2,
+      title: "That's What I Like",
+      artist: 'Bruno Mars',
+      album: '24K Magic',
+      cover: '/artists/bruno-mars.jpg',
+      src: '/music/thats-what-i-like.mp3',
+      genre: 'Funk • R&B • 24K Magic',
+      duration: '3:26',
+      isAudioFile: true
+    },
+    {
+      id: 3,
+      title: 'Please Me',
+      artist: 'Cardi B & Bruno Mars',
+      album: 'Single',
+      cover: '/artists/bruno-mars.jpg',
+      src: '/music/please-me.mp3',
+      genre: 'Sensual 90s R&B',
+      duration: '3:20',
+      isAudioFile: true
+    },
+    {
+      id: 4,
+      title: 'Just the Way You Are',
+      artist: 'Bruno Mars',
+      album: 'Doo-Wops & Hooligans',
+      cover: '/artists/bruno-mars.jpg',
+      src: '/music/just-the-way-you-are.mp3',
+      genre: 'Pop Ballad • Timeless Classic',
+      duration: '3:40',
+      isAudioFile: true
+    },
+    {
+      id: 5,
+      title: 'Runaway Baby',
+      artist: 'Bruno Mars',
+      album: 'Doo-Wops & Hooligans',
+      cover: '/artists/bruno-mars.jpg',
+      src: '/music/runaway-baby.mp3',
+      genre: 'High-Octane Funk Rock',
+      duration: '2:27',
+      isAudioFile: true
+    },
+    {
+      id: 6,
+      title: 'Too Good to Say Goodbye',
+      artist: 'Bruno Mars',
+      album: '24K Magic',
+      cover: '/artists/bruno-mars.jpg',
+      src: '/music/too-good-to-say-goodbye.mp3',
+      genre: 'Retro Soul Ballad',
+      duration: '4:49',
+      isAudioFile: true
+    },
+    {
+      id: 7,
       title: 'exile',
       artist: 'Taylor Swift feat. Bon Iver',
       album: 'folklore',
       cover: '/artists/taylor-swift.png',
       src: '/music/exile.mp3',
       genre: 'Indie Alternative • Folk-Pop',
+      duration: '4:45',
       isAudioFile: true
     },
     {
-      id: 3,
-      title: 'Midnight Code',
-      artist: 'ajies • Lo-Fi Beats',
-      genre: 'Lo-Fi / Focus Chill',
-      bpm: 78,
-      isAudioFile: false,
-      chords: [
-        [220, 261.63, 329.63, 392.00], // Am7
-        [174.61, 220, 261.63, 329.63], // Fmaj7
-        [261.63, 329.63, 392.00, 493.88], // Cmaj7
-        [196.00, 246.94, 293.66, 349.23]  // G7
-      ]
+      id: 8,
+      title: 'august',
+      artist: 'Taylor Swift',
+      album: 'folklore',
+      cover: '/artists/taylor-swift.png',
+      src: '/music/august.mp3',
+      genre: 'Dream Pop • Summer Breeze',
+      duration: '4:21',
+      isAudioFile: true
     },
     {
-      id: 4,
-      title: 'Cyber Odyssey',
-      artist: 'ajies • Synthwave',
-      genre: 'Retro 80s Cyberpunk',
-      bpm: 110,
-      isAudioFile: false,
-      chords: [
-        [146.83, 220, 293.66, 369.99], // Dm
-        [116.54, 174.61, 233.08, 293.66], // Bb
-        [130.81, 196.00, 261.63, 329.63], // C
-        [110.00, 164.81, 220, 261.63]  // Am
-      ]
+      id: 9,
+      title: 'cardigan',
+      artist: 'Taylor Swift',
+      album: 'folklore',
+      cover: '/artists/taylor-swift.png',
+      src: '/music/cardigan.mp3',
+      genre: 'Indie Folk Magic',
+      duration: '3:59',
+      isAudioFile: true
+    },
+    {
+      id: 10,
+      title: 'so long, london',
+      artist: 'Taylor Swift',
+      album: 'TTPD',
+      cover: '/artists/taylor-swift.png',
+      src: '/music/so-long-london.mp3',
+      genre: 'Synth-Pop • Poetic Farewell',
+      duration: '3:47',
+      isAudioFile: true
+    },
+    {
+      id: 11,
+      title: 'Guilty as Sin?',
+      artist: 'Taylor Swift',
+      album: 'TTPD',
+      cover: '/artists/taylor-swift.png',
+      src: '/music/guilty-as-sin.mp3',
+      genre: '90s Alt-Rock • Dream Pop',
+      duration: '4:14',
+      isAudioFile: true
     }
   ];
 
@@ -198,12 +289,12 @@ export default function MusicPlayer({ autoPlay = false }) {
           [196.00, 233.08, 293.66, 349.23], // Gm7
           [130.81, 164.81, 196.00, 246.94]  // Cm7
         ];
-      case 'hindia':
+      case 'laufey':
         return [
-          [174.61, 220.00, 261.63, 349.23], // F
-          [130.81, 164.81, 196.00, 261.63], // C
-          [196.00, 246.94, 293.66, 392.00], // G
-          [220.00, 261.63, 329.63, 440.00]  // Am
+          [146.83, 220.00, 261.63, 329.63], // Dm9
+          [196.00, 246.94, 329.63, 392.00], // G13
+          [130.81, 196.00, 246.94, 329.63], // Cmaj9
+          [110.00, 164.81, 220.00, 277.18]  // A7
         ];
       default:
         return [
@@ -220,7 +311,7 @@ export default function MusicPlayer({ autoPlay = false }) {
       case 'bruno-mars': return 104;
       case 'dewa-19': return 84;
       case 'taylor-swift': return 76;
-      case 'hindia': return 88;
+      case 'laufey': return 92;
       default: return 80;
     }
   };
@@ -274,7 +365,7 @@ export default function MusicPlayer({ autoPlay = false }) {
       synthTimerRef.current = null;
     }
 
-    const artistObj = artist || topArtists.find(a => a.id === selectedArtistId) || topArtists[0];
+    const artistObj = artist || (typeof song.artist === 'string' ? topArtists.find(a => song.artist.toLowerCase().includes(a.name.toLowerCase())) : null) || topArtists.find(a => a.id === selectedArtistId) || topArtists[0];
     const audioSrc = song.src || (song.title === 'Laskar Cinta' ? '/music/laskar-cinta.mp3' : null);
 
     if (song.duration && typeof song.duration === 'string' && song.duration.includes(':')) {
@@ -286,19 +377,24 @@ export default function MusicPlayer({ autoPlay = false }) {
     }
 
     const newTrack = {
-      id: `song-${artistObj.id}-${song.rank || song.title}`,
+      id: song.id || `song-${artistObj.id}-${song.rank || song.title}`,
       title: song.title,
-      artist: artistObj.name + (song.feat ? ` ${song.feat}` : ''),
+      artist: song.artist || (artistObj ? artistObj.name + (song.feat ? ` ${song.feat}` : '') : 'Artist'),
       album: song.album || 'Featured Hits',
-      cover: artistObj.photo || artistObj.cover || '/artists/dewa19.jpg',
+      cover: song.cover || artistObj?.photo || artistObj?.cover || '/artists/dewa19.jpg',
       src: audioSrc,
-      genre: artistObj.genre || 'Pop / Rock',
+      genre: song.genre || artistObj?.genre || 'Pop / Rock',
       isAudioFile: Boolean(audioSrc),
       duration: song.duration || '3:30',
       vibe: song.vibe || '',
       chords: getArtistChords(artistObj.id),
       bpm: getArtistBpm(artistObj.id)
     };
+
+    const foundIdx = playlist.findIndex(p => p.title.toLowerCase() === song.title.toLowerCase());
+    if (foundIdx !== -1) {
+      setCurrentTrackIndex(foundIdx);
+    }
 
     setActiveTrack(newTrack);
     setPlaybackTime(0);
@@ -543,10 +639,14 @@ export default function MusicPlayer({ autoPlay = false }) {
       {/* Expanded Music Player Card with Open & Close Animation */}
       {(isExpanded || isClosing) && (
         <div
-          className={`glass-card music-expanded-card ${isClosing ? 'player-card-closing' : 'player-card-opening'}`}
+          data-lenis-prevent
+          className={`glass-card music-expanded-card custom-player-scrollbar ${isClosing ? 'player-card-closing' : 'player-card-opening'}`}
           style={{
             width: playerTab === 'artists' ? '360px' : '330px',
             maxWidth: 'calc(100vw - 32px)',
+            maxHeight: 'calc(100vh - 100px)',
+            overflowY: 'auto',
+            overscrollBehavior: 'contain',
             padding: '1.25rem',
             marginBottom: '10px',
             borderRadius: 'var(--radius-xl)',
@@ -557,6 +657,8 @@ export default function MusicPlayer({ autoPlay = false }) {
             pointerEvents: isClosing ? 'none' : 'auto',
             transition: 'width 0.2s ease'
           }}
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
         >
           {/* Header of expanded player */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
@@ -786,16 +888,27 @@ export default function MusicPlayer({ autoPlay = false }) {
               </div>
 
               {/* Animated visualizer spectrum bars */}
-              <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '4px', height: '26px', marginBottom: '1.1rem' }}>
-                {[16, 24, 12, 26, 20, 14, 22, 18, 10, 24, 15, 21, 12].map((h, i) => (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  gap: '3.5px',
+                  height: '28px',
+                  marginBottom: '1.1rem'
+                }}
+                title={isPlaying ? 'Visualizer Aktif' : 'Visualizer Jeda'}
+              >
+                {VISUALIZER_BARS.map((bar, i) => (
                   <div
                     key={i}
+                    className={isPlaying ? 'eq-bar-playing' : 'eq-bar-paused'}
                     style={{
                       width: '3.5px',
-                      height: isPlaying ? `${Math.max(4, (h * ((Math.floor(playbackTime) + i) % 5 + 1)) % 26)}px` : '4px',
-                      borderRadius: '2px',
-                      background: isPlaying ? '#ffffff' : 'rgba(255, 255, 255, 0.2)',
-                      transition: 'height 0.12s ease'
+                      borderRadius: '9999px',
+                      '--target-height': `${bar.max}px`,
+                      '--anim-dur': `${bar.dur}s`,
+                      '--anim-delay': `${bar.delay}s`
                     }}
                   />
                 ))}
@@ -932,14 +1045,18 @@ export default function MusicPlayer({ autoPlay = false }) {
             <div>
               {/* Horizontal Artist Avatars Row */}
               <div
+                data-lenis-prevent
                 style={{
                   display: 'flex',
                   gap: '0.5rem',
                   marginBottom: '0.85rem',
                   overflowX: 'auto',
                   paddingBottom: '4px',
-                  scrollbarWidth: 'none'
+                  scrollbarWidth: 'none',
+                  overscrollBehavior: 'contain'
                 }}
+                onWheel={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
               >
                 {topArtists.map((artist) => {
                   const isSel = selectedArtistId === artist.id;
@@ -1076,21 +1193,27 @@ export default function MusicPlayer({ autoPlay = false }) {
 
               {/* List of 5 Favorite Songs */}
               <div
+                data-lenis-prevent
+                className="custom-player-scrollbar"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '0.4rem',
-                  maxHeight: '215px',
+                  gap: '0.45rem',
+                  maxHeight: '235px',
                   overflowY: 'auto',
-                  paddingRight: '2px'
+                  overscrollBehavior: 'contain',
+                  paddingRight: '6px',
+                  WebkitOverflowScrolling: 'touch'
                 }}
+                onWheel={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
               >
                 {selectedArtist.topSongs.map((song) => {
                   const isCurrentPlaying = currentTrack.title === song.title && isPlaying;
                   return (
                     <div
                       key={song.rank}
-                      onClick={() => playSong(song, selectedArtist)}
+                      onClick={() => isCurrentPlaying ? togglePlay() : playSong(song, selectedArtist)}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -1116,7 +1239,7 @@ export default function MusicPlayer({ autoPlay = false }) {
                           e.currentTarget.style.transform = 'translateX(0)';
                         }
                       }}
-                      title={`Klik untuk putar ${song.title}`}
+                      title={isCurrentPlaying ? `Klik untuk jeda ${song.title}` : `Klik untuk putar ${song.title}`}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', minWidth: 0, flex: 1 }}>
                         <div
@@ -1148,8 +1271,15 @@ export default function MusicPlayer({ autoPlay = false }) {
                               </span>
                             )}
                           </div>
-                          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                            {song.album} ({song.year})
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                            <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                              {song.album} ({song.year})
+                            </span>
+                            {song.playable && (
+                              <span style={{ fontSize: '0.55rem', padding: '0.05rem 0.3rem', borderRadius: '3px', background: 'rgba(34, 211, 238, 0.15)', color: '#22d3ee', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+                                HQ
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -1395,8 +1525,15 @@ export default function MusicPlayer({ autoPlay = false }) {
       <TopArtistsModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
+        initialArtistId={selectedArtistId}
+        currentPlayingTitle={isPlaying ? currentTrack.title : null}
+        isMusicPlaying={isPlaying}
         onPlayTrack={(song, artist) => {
-          playSong(song, artist || selectedArtist);
+          if (currentTrack.title === song.title && isPlaying) {
+            togglePlay();
+          } else {
+            playSong(song, artist || selectedArtist);
+          }
         }}
       />
 
@@ -1433,6 +1570,70 @@ export default function MusicPlayer({ autoPlay = false }) {
 
         .player-card-closing {
           animation: playerExit 0.26s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .custom-player-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.04);
+        }
+
+        .custom-player-scrollbar::-webkit-scrollbar {
+          width: 5px;
+          height: 5px;
+        }
+
+        .custom-player-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.04);
+          border-radius: 9999px;
+        }
+
+        .custom-player-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.28);
+          border-radius: 9999px;
+          transition: background 0.2s;
+        }
+
+        .custom-player-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.55);
+        }
+
+        /* Equalizer Visualizer Bars: Fluid Wave when Playing, Perfectly Flat when Paused */
+        .eq-bar-playing {
+          height: 3px;
+          background: #ffffff;
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.45);
+          animation: eqDance var(--anim-dur, 0.7s) ease-in-out var(--anim-delay, 0s) infinite alternate;
+          transform-origin: bottom;
+          will-change: height, opacity;
+        }
+
+        .eq-bar-paused {
+          height: 3px !important;
+          background: rgba(255, 255, 255, 0.22) !important;
+          box-shadow: none !important;
+          animation: none !important;
+          opacity: 0.35 !important;
+          transform: none !important;
+          transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, opacity 0.3s ease !important;
+        }
+
+        @keyframes eqDance {
+          0% {
+            height: 3px;
+            opacity: 0.4;
+          }
+          35% {
+            height: calc(var(--target-height, 22px) * 0.4);
+            opacity: 0.75;
+          }
+          70% {
+            height: calc(var(--target-height, 22px) * 0.85);
+            opacity: 0.95;
+          }
+          100% {
+            height: var(--target-height, 22px);
+            opacity: 1;
+          }
         }
 
         @media (max-width: 600px) {

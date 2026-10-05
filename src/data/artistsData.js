@@ -63,67 +63,9 @@ export const topArtists = [
         year: '2024',
         duration: '4:14',
         vibe: 'Dreamy 90s Alt-Rock & Romantic Reverie',
-        note: 'Ketukan drum santai ala Blue Nile dengan melodi melayang dan lirik penuh imajinasi cinta rahasia.'
-      }
-    ]
-  },
-  {
-    id: 'dewa-19',
-    name: 'Dewa 19',
-    photo: '/artists/dewa19.jpg',
-    cover: '/artists/dewa19.jpg',
-    genre: 'Legendary Rock Indonesia • Pop Rock',
-    badge: 'All-Time Indonesian Classic',
-    color: '#f59e0b',
-    accentColor: '#fbbf24',
-    bio: 'Grup musik rock legendaris asal Surabaya yang dipelopori Ahmad Dhani. Melahirkan karya-karya abadi dengan progresi kord rumit, aransemen megah, dan lirik sufistik puitis.',
-    quote: '"Laskar cinta sebarkanlah benih-benih cinta, musnahkan virus-virus benci." — Laskar Cinta',
-    topSongs: [
-      {
-        rank: 1,
-        title: 'Laskar Cinta',
-        album: 'Republik Cinta',
-        year: '2004',
-        duration: '5:17',
-        vibe: 'Rock Spiritual Epik & Timur Tengah',
-        note: 'Lagu anthem kedamaian dengan riff gitar bertenaga dan tabuhan perkusi eksotis.',
+        note: 'Ketukan drum santai ala Blue Nile dengan melodi melayang dan lirik penuh imajinasi cinta rahasia.',
+        src: '/music/guilty-as-sin.mp3',
         playable: true
-      },
-      {
-        rank: 2,
-        title: 'Kangen',
-        album: '19',
-        year: '1992',
-        duration: '5:28',
-        vibe: 'Nostalgia Abadi 90-an',
-        note: 'Lagu debut legendaris dengan lirik kerinduan tulus yang tak lekang oleh waktu.'
-      },
-      {
-        rank: 3,
-        title: 'Pupus',
-        album: 'Cintailah Cinta',
-        year: '2002',
-        duration: '5:05',
-        vibe: 'Balada Cinta Menyayat Hati',
-        note: 'Lagu patah hati paling ikonik dengan klimaks gitar solo Andra Ramadhan yang memukau.'
-      },
-      {
-        rank: 4,
-        title: 'Risalah Hati',
-        album: 'Bintang Lima',
-        year: '2000',
-        duration: '4:52',
-        vibe: 'Pop Rock Romantis Filosofis',
-        note: '"Aku bisa membuatmu jatuh cinta kepadaku meski kau tak pernah merasakannya."'
-      },
-      {
-        rank: 5,
-        title: 'Roman Picisan',
-        album: 'Bintang Lima',
-        year: '2000',
-        duration: '4:02',
-        vibe: 'Orkestrasi Megah & Puisi Cinta Klasik',
-        note: 'Perpaduan megah string orchestra dan puisi cinta yang agung.'
       }
     ]
   },
@@ -146,7 +88,9 @@ export const topArtists = [
         year: '2016',
         duration: '3:26',
         vibe: '24K Golden Funk & Smooth R&B',
-        note: 'Anthem funk pop pemenang Grammy Song of the Year dengan beat 808 dan falsetto yang sangat adiktif.'
+        note: 'Anthem funk pop pemenang Grammy Song of the Year dengan beat 808 dan falsetto yang sangat adiktif.',
+        src: '/music/thats-what-i-like.mp3',
+        playable: true
       },
       {
         rank: 2,
@@ -156,7 +100,9 @@ export const topArtists = [
         year: '2019',
         duration: '3:20',
         vibe: 'Sensual 90s Slow Jam R&B',
-        note: 'Slow jam bernuansa R&B era 90-an yang sensual dengan harmonisasi vokal manis dan groove santai.'
+        note: 'Slow jam bernuansa R&B era 90-an yang sensual dengan harmonisasi vokal manis dan groove santai.',
+        src: '/music/please-me.mp3',
+        playable: true
       },
       {
         rank: 3,
@@ -165,7 +111,9 @@ export const topArtists = [
         year: '2010',
         duration: '3:40',
         vibe: 'Timeless Romantic Pop Ballad',
-        note: '"When I see your face, there\'s not a thing that I would change, \'cause you\'re amazing, just the way you are."'
+        note: '"When I see your face, there\'s not a thing that I would change, \'cause you\'re amazing, just the way you are."',
+        src: '/music/just-the-way-you-are.mp3',
+        playable: true
       },
       {
         rank: 4,
@@ -174,7 +122,9 @@ export const topArtists = [
         year: '2010',
         duration: '2:27',
         vibe: 'High-Octane Motown Funk & Rock',
-        note: 'Trek energik bertempo cepat dengan distorsi megafon ala James Brown dan ritme dance yang eksplosif.'
+        note: 'Trek energik bertempo cepat dengan distorsi megafon ala James Brown dan ritme dance yang eksplosif.',
+        src: '/music/runaway-baby.mp3',
+        playable: true
       },
       {
         rank: 5,
@@ -183,67 +133,69 @@ export const topArtists = [
         year: '2016',
         duration: '4:49',
         vibe: 'Heartbreaking Retro Soul Ballad',
-        note: 'Balada soul retro yang menyayat hati dengan dentingan piano lembut dan vokal klimaks penuh kepedihan.'
+        note: 'Balada soul retro yang menyayat hati dengan dentingan piano lembut dan vokal klimaks penuh kepedihan.',
+        src: '/music/too-good-to-say-goodbye.mp3',
+        playable: true
       }
     ]
   },
   {
-    id: 'hindia',
-    name: 'Hindia',
-    photo: '/artists/hindia.jpg',
-    cover: '/artists/hindia.jpg',
-    genre: 'Indie Pop • Alternative Rock • Lyrical',
-    badge: 'Voice of Modern Generation',
-    color: '#8b5cf6',
-    accentColor: '#a78bfa',
-    bio: 'Proyek solo dari Baskara Putra (vokalis .Feast). Menghadirkan lirik tajam dan sangat relevan tentang perjuangan karir, kesehatan mental, dan pencarian makna hidup.',
-    quote: '"Berapa jauh kau melangkah, kau takkan sendiri..." — Evaluasi',
+    id: 'laufey',
+    name: 'Laufey',
+    photo: '/artists/laufey.jpg',
+    cover: '/artists/laufey.jpg',
+    genre: 'Traditional Pop • Modern Bossa Nova • Jazz Pop',
+    badge: 'Grammy Winner • Jazz Pop Icon',
+    color: '#d97706',
+    accentColor: '#fbbf24',
+    bio: 'Penyanyi-penulis lagu dan multi-instrumentalis asal Islandia. Mempopulerkan kembali keanggunan jazz klasik, harmoni bossa nova, dan melodi dawai orkestra yang hangat dan sinematik bagi generasi muda.',
+    quote: '"Oh, I\'m so dizzy, don\'t have to guess that you don\'t feel the same." — From the Start',
     topSongs: [
       {
         rank: 1,
-        title: 'Evaluasi',
-        album: 'Menari dengan Bayangan',
-        year: '2019',
-        duration: '3:24',
-        vibe: 'Anthem Penyembuhan & Menerima Diri',
-        note: 'Lagu wajib penyemangat saat merasa lelah dan terjatuh di tengah rutinitas.'
+        title: 'Let You Break My Heart Again',
+        feat: 'feat. Philharmonia Orchestra',
+        album: 'Typical of Me',
+        year: '2021',
+        duration: '4:21',
+        vibe: 'Grand Orchestral Jazz & Melancholic Longing',
+        note: 'Balada vokal megah berpadu dengan gesekan dawai Philharmonia Orchestra yang magis dan menyayat hati.'
       },
       {
         rank: 2,
-        title: 'Rumah Ke Rumah',
-        album: 'Menari dengan Bayangan',
-        year: '2019',
-        duration: '4:37',
-        vibe: 'Perjalanan Kedewasaan & Rasa Syukur',
-        note: 'Catatan perjalanan hati melewati fase-fase hubungan hingga menemukan tempat berlabuh.'
+        title: 'Too Little Too Late',
+        album: 'Typical of Me',
+        year: '2021',
+        duration: '3:05',
+        vibe: 'Acoustic Bossa Nova & Bittersweet Goodbye',
+        note: 'Petikan gitar lembut bergaya bossa nova dengan vokal intim tentang melepaskan masa lalu.'
       },
       {
         rank: 3,
-        title: 'Secukupnya',
-        album: 'Menari dengan Bayangan',
-        year: '2019',
-        duration: '3:27',
-        vibe: 'Realita Kehidupan Kota & Tekanan Hidup',
-        note: 'Soundtrack film NKCTHI dengan aransemen indie rock bertempo cepat.'
+        title: 'From the Start',
+        album: 'Bewitched',
+        year: '2023',
+        duration: '2:49',
+        vibe: 'Upbeat Bossa Nova & Playful Yearning',
+        note: 'Lagu anthem cinta bertepuk sebelah tangan paling viral dengan ketukan bossa nova ceria dan lirik yang sangat catchy.'
       },
       {
         rank: 4,
-        title: 'Membasuh',
-        feat: 'feat. Rara Sekar',
-        album: 'Menari dengan Bayangan',
-        year: '2019',
-        duration: '6:12',
-        vibe: 'Ikhlas, Tenang, & Meditatif',
-        note: 'Lagu balada lembut yang mengajarkan indahnya memberi tanpa mengharap kembali.'
+        title: 'Valentine',
+        album: 'Everything I Know About Love',
+        year: '2022',
+        duration: '3:00',
+        vibe: 'Dreamy Vintage Romance & Lush Harmonies',
+        note: '"I\'ve rejected affection for years and years, now I have it and damn it, it\'s terrifying." Romansa vintage yang manis.'
       },
       {
         rank: 5,
-        title: 'Cincin',
-        album: 'Lagipula Hidup Akan Berakhir',
+        title: 'Promise',
+        album: 'Bewitched',
         year: '2023',
-        duration: '4:39',
-        vibe: 'Cinta Realistis Dewasa',
-        note: 'Refleksi komitmen cinta yang apa adanya di tengah dunia yang bising.'
+        duration: '3:54',
+        vibe: 'Tearjerker Piano Ballad & Deep Emotion',
+        note: 'Balada piano emosional tentang janji untuk saling menjaga jarak demi menyembuhkan luka yang tak kunjung hilang.'
       }
     ]
   }
