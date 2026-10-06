@@ -13,6 +13,7 @@ import {
 import { GithubIcon, InstagramIcon, TiktokIcon } from './Icons';
 import LanyardCard from './LanyardCard';
 import TechText from './TechText';
+import AeroShards from './AeroShards';
 
 export default function Hero({ onOpenGame, onOpenResume }) {
   const roles = [
@@ -83,8 +84,43 @@ export default function Hero({ onOpenGame, onOpenResume }) {
   };
 
   return (
-    <section id="hero" style={{ position: 'relative', paddingTop: '8.5rem', paddingBottom: '5rem', minHeight: '92vh', display: 'flex', alignItems: 'center' }}>
-      <div className="container">
+    <section id="hero" style={{ position: 'relative', paddingTop: '8.5rem', paddingBottom: '5rem', minHeight: '92vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+      {/* Interactive AeroShards Wind Sculpture Background */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: 'none',
+          mixBlendMode: 'screen',
+          opacity: 0.65
+        }}
+      >
+        <AeroShards
+          backgroundColor="#000000"
+          shardColor="#38bdf8"
+          accentColor="#c084fc"
+          placement="full"
+          flow="stream"
+          material="pearl"
+          detail="balanced"
+          effect="none"
+          scale={1}
+          spread={0.9}
+          depth={0.8}
+          speed={0.7}
+          spin={0.8}
+          interaction="repel"
+          density={1.2}
+          shardSize={1.0}
+          glow={1.2}
+          bloom={0.4}
+          edgeSoftness={2}
+          holdToGather={true}
+        />
+      </div>
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'center' }}>
           
           {/* Left Column: Bio & Intros */}

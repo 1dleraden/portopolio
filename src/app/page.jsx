@@ -17,6 +17,7 @@ import MusicPlayer from '@/components/MusicPlayer';
 import Preloader from '@/components/Preloader';
 import ScrollProgressBar from '@/components/ScrollProgressBar';
 import AiChatWidget from '@/components/AiChatWidget';
+import GradualBlur from '@/components/GradualBlur';
 
 export default function Home() {
   const [terminalOpen, setTerminalOpen] = useState(false);
@@ -50,6 +51,19 @@ export default function Home() {
       <Navbar
         onOpenTerminal={() => setTerminalOpen(true)}
         onOpenResume={() => setResumeOpen(true)}
+      />
+
+      {/* Top Frosted-Glass Gradual Blur Transition under Navbar */}
+      <GradualBlur
+        target="page"
+        position="top"
+        height="5.5rem"
+        strength={2}
+        divCount={5}
+        curve="bezier"
+        exponential={true}
+        opacity={0.85}
+        style={{ zIndex: 45 }}
       />
 
       {/* Main Flow */}

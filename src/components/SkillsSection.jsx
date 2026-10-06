@@ -9,11 +9,47 @@ import {
   Wrench, 
   Sparkles, 
   Check, 
-  Terminal,
-  Cpu,
-  Layers,
-  Zap
+  Terminal, 
+  Cpu, 
+  Layers, 
+  Zap 
 } from 'lucide-react';
+import LogoLoop from './LogoLoop';
+import {
+  SiReact,
+  SiNextdotjs,
+  SiJavascript,
+  SiTypescript,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiPython,
+  SiPhp,
+  SiMysql,
+  SiPostgresql,
+  SiDocker,
+  SiGit,
+  SiGithub,
+  SiVite,
+  SiFigma
+} from 'react-icons/si';
+
+const TECH_LOGOS = [
+  { node: <SiReact color="#61DAFB" />, title: 'React', href: 'https://react.dev' },
+  { node: <SiNextdotjs color="#FFFFFF" />, title: 'Next.js', href: 'https://nextjs.org' },
+  { node: <SiJavascript color="#F7DF1E" />, title: 'JavaScript', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+  { node: <SiTypescript color="#3178C6" />, title: 'TypeScript', href: 'https://www.typescriptlang.org' },
+  { node: <SiTailwindcss color="#06B6D4" />, title: 'Tailwind CSS', href: 'https://tailwindcss.com' },
+  { node: <SiNodedotjs color="#5FA04E" />, title: 'Node.js', href: 'https://nodejs.org' },
+  { node: <SiPython color="#3776AB" />, title: 'Python', href: 'https://www.python.org' },
+  { node: <SiPhp color="#777BB4" />, title: 'PHP', href: 'https://www.php.net' },
+  { node: <SiMysql color="#4479A1" />, title: 'MySQL', href: 'https://www.mysql.com' },
+  { node: <SiPostgresql color="#4169E1" />, title: 'PostgreSQL', href: 'https://www.postgresql.org' },
+  { node: <SiDocker color="#2496ED" />, title: 'Docker', href: 'https://www.docker.com' },
+  { node: <SiGit color="#F05032" />, title: 'Git', href: 'https://git-scm.com' },
+  { node: <SiGithub color="#FFFFFF" />, title: 'GitHub', href: 'https://github.com/1dleraden' },
+  { node: <SiVite color="#646CFF" />, title: 'Vite', href: 'https://vitejs.dev' },
+  { node: <SiFigma color="#F24E1E" />, title: 'Figma', href: 'https://www.figma.com' }
+];
 
 const getSkillIcon = (name, category) => {
   if (name.includes('Next.js') || name.includes('React')) return Layers;
@@ -445,6 +481,79 @@ export default function SkillsSection() {
           >
             Kombinasi alat modern untuk merancang pengalaman web interaktif dan mengembangkan game yang seru.
           </p>
+
+          {/* LogoLoop Infinite Marquee from React Bits */}
+          <div
+            style={{
+              margin: '2.5rem 0 1.25rem',
+              position: 'relative',
+              width: '100%',
+              overflow: 'hidden',
+              opacity: isSectionInView ? 1 : 0,
+              transform: isSectionInView ? 'translate3d(0, 0, 0)' : 'translate3d(0, 20px, 0)',
+              transition: 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 260ms, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 260ms'
+            }}
+          >
+            <LogoLoop
+              logos={TECH_LOGOS}
+              speed={55}
+              direction="left"
+              logoHeight={32}
+              gap={24}
+              hoverSpeed={0}
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#000000"
+              ariaLabel="Teknologi dan stack pemrograman"
+              renderItem={(item) => (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.65rem',
+                    padding: '0.5rem 1.1rem',
+                    borderRadius: '9999px',
+                    background: 'rgba(15, 23, 42, 0.65)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    userSelect: 'none',
+                    transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.5)';
+                    e.currentTarget.style.background = 'rgba(15, 23, 42, 0.95)';
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(56, 189, 248, 0.25)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.background = 'rgba(15, 23, 42, 0.65)';
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.35)';
+                  }}
+                >
+                  <span style={{ display: 'inline-flex', fontSize: '1.3rem' }}>
+                    {item.node}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '0.85rem',
+                      fontWeight: 700,
+                      color: '#e2e8f0',
+                      letterSpacing: '0.02em',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    {item.title}
+                  </span>
+                </a>
+              )}
+            />
+          </div>
 
           {/* Filter Pills */}
           <div

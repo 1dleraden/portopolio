@@ -34,6 +34,7 @@ const DEFAULT_SUGGESTIONS = [
 
 export default function AiChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [messages, setMessages] = useState(INITIAL_MESSAGES);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +46,27 @@ export default function AiChatWidget() {
   const chatScrollContainerRef = useRef(null);
   const prevMessagesLengthRef = useRef(messages.length);
   const inputRef = useRef(null);
+
+  const openChat = () => {
+    setIsClosing(false);
+    setIsOpen(true);
+  };
+
+  const closeChat = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClosing(false);
+    }, 280);
+  };
+
+  const toggleChat = () => {
+    if (isOpen) {
+      closeChat();
+    } else {
+      openChat();
+    }
+  };
 
   // Directly scroll the chat container without touching window or Lenis
   const scrollToBottom = (instant = false) => {
@@ -87,7 +109,7 @@ export default function AiChatWidget() {
   // Listen for global custom events to open chat from anywhere
   useEffect(() => {
     const handleOpenChat = (e) => {
-      setIsOpen(true);
+      openChat();
       if (e.detail?.query) {
         handleSendMessage(e.detail.query);
       }
@@ -259,9 +281,9 @@ export default function AiChatWidget() {
         }}
       >
         {/* Helper Pill Tag */}
-        {!isOpen && (
+        {!isOpen && !isClosing && (
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={openChat}
             className="ai-chat-pill-tag"
             style={{
               padding: '0.45rem 0.9rem',
@@ -276,8 +298,7 @@ export default function AiChatWidget() {
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.45rem',
-              transition: 'all 0.25s'
+              gap: '0.45rem'
             }}
           >
             <span
@@ -296,8 +317,8 @@ export default function AiChatWidget() {
 
         {/* Main Floating Button */}
         <button
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-label="Buka Chat AI"
+          onClick={toggleChat}
+          aria-label={isOpen ? 'Tutup Chat AI' : 'Buka Chat AI'}
           style={{
             width: '56px',
             height: '56px',
@@ -317,7 +338,8 @@ export default function AiChatWidget() {
             justifyContent: 'center',
             cursor: 'pointer',
             transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            position: 'relative'
+            position: 'relative',
+            animation: isOpen ? 'none' : 'aiAuraPulse 3s infinite ease-in-out'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'scale(1.08)';
@@ -326,36 +348,46 @@ export default function AiChatWidget() {
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
-          {isOpen ? (
-            <X size={24} />
-          ) : (
-            <>
-              <Bot size={26} />
-              {hasUnread && (
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: '-2px',
-                    right: '-2px',
-                    width: '14px',
-                    height: '14px',
-                    borderRadius: '50%',
-                    background: '#ef4444',
-                    border: '2px solid #000'
-                  }}
-                />
-              )}
-            </>
-          )}
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1)',
+              transform: isOpen ? 'rotate(90deg) scale(1.05)' : 'rotate(0deg) scale(1)'
+            }}
+          >
+            {isOpen ? (
+              <X size={24} />
+            ) : (
+              <>
+                <Bot size={26} />
+                {hasUnread && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '-2px',
+                      right: '-2px',
+                      width: '14px',
+                      height: '14px',
+                      borderRadius: '50%',
+                      background: '#ef4444',
+                      border: '2px solid #000'
+                    }}
+                  />
+                )}
+              </>
+            )}
+          </span>
         </button>
       </div>
 
       {/* ============================================================ */}
-      {/* CHAT POPUP WINDOW                                            */}
+      {/* CHAT POPUP WINDOW WITH CYBERNETIC ENTRANCE ANIMATION        */}
       {/* ============================================================ */}
-      {isOpen && (
+      {(isOpen || isClosing) && (
         <div
-          className="glass-card ai-chat-modal lenis-prevent"
+          className={`glass-card ai-chat-modal lenis-prevent ${isClosing ? 'ai-chat-closing' : 'ai-chat-opening'}`}
           data-lenis-prevent="true"
           style={{
             position: 'fixed',
@@ -368,14 +400,38 @@ export default function AiChatWidget() {
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
-            background: 'rgba(8, 12, 24, 0.95)',
+            background: 'rgba(8, 12, 24, 0.96)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(56, 189, 248, 0.25)',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(56, 189, 248, 0.15)',
-            animation: 'fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+            border: '1px solid rgba(56, 189, 248, 0.3)',
+            boxShadow: '0 25px 70px rgba(0, 0, 0, 0.9), 0 0 50px rgba(56, 189, 248, 0.22)',
+            transformOrigin: 'bottom right',
+            pointerEvents: isClosing ? 'none' : 'auto'
           }}
         >
+          {/* Holographic Glowing Scanner Top Bar */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent, #38bdf8, #818cf8, #c084fc, transparent)',
+              zIndex: 10,
+              pointerEvents: 'none',
+              overflow: 'hidden'
+            }}
+          >
+            <div
+              style={{
+                width: '60%',
+                height: '100%',
+                background: 'linear-gradient(90deg, transparent, #ffffff, transparent)',
+                animation: 'aiLaserScan 2.4s linear infinite'
+              }}
+            />
+          </div>
           {/* Header */}
           <div
             style={{
@@ -465,7 +521,7 @@ export default function AiChatWidget() {
               </button>
 
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={closeChat}
                 title="Tutup Chat"
                 style={{
                   width: '32px',
@@ -519,7 +575,8 @@ export default function AiChatWidget() {
                     flexDirection: 'column',
                     alignItems: isAi ? 'flex-start' : 'flex-end',
                     gap: '0.25rem',
-                    maxWidth: '100%'
+                    maxWidth: '100%',
+                    animation: 'aiBubbleFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                 >
                   <div
@@ -763,54 +820,6 @@ export default function AiChatWidget() {
           </div>
         </div>
       )}
-
-      <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.97);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-        .ai-chat-pill-tag:hover {
-          border-color: #38bdf8 !important;
-          background: rgba(15, 23, 42, 0.98) !important;
-          transform: translateY(-2px);
-        }
-        .ai-chat-messages {
-          overflow-y: auto !important;
-          overscroll-behavior: contain !important;
-          touch-action: pan-y !important;
-          scrollbar-width: thin;
-          scrollbar-color: rgba(56, 189, 248, 0.4) rgba(255, 255, 255, 0.04);
-        }
-        .ai-chat-messages::-webkit-scrollbar {
-          width: 6px;
-        }
-        .ai-chat-messages::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.04);
-          border-radius: 9999px;
-        }
-        .ai-chat-messages::-webkit-scrollbar-thumb {
-          background: rgba(56, 189, 248, 0.4);
-          border-radius: 9999px;
-        }
-        .ai-chat-messages::-webkit-scrollbar-thumb:hover {
-          background: rgba(56, 189, 248, 0.8);
-        }
-        @media (max-width: 640px) {
-          .ai-chat-modal {
-            right: 12px !important;
-            left: 12px !important;
-            width: auto !important;
-            bottom: 84px !important;
-            height: min(580px, calc(100vh - 100px)) !important;
-          }
-        }
-      `}</style>
     </>
   );
 }

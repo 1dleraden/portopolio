@@ -151,7 +151,8 @@ export default function DevConsoleModal({ isOpen, onClose }) {
           background: 'rgba(6, 9, 22, 0.96)',
           border: '1px solid rgba(139, 92, 246, 0.4)',
           boxShadow: '0 25px 70px rgba(0,0,0,0.85), 0 0 40px rgba(139, 92, 246, 0.25)',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          fontFamily: "var(--font-terminal, 'Consolas', 'Courier New', monospace)"
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -168,7 +169,7 @@ export default function DevConsoleModal({ isOpen, onClose }) {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <Terminal size={16} color="#22d3ee" />
-            <span style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#f8fafc' }}>
+            <span style={{ fontSize: '0.85rem', fontFamily: "var(--font-terminal, 'Consolas', 'Courier New', monospace)", fontWeight: 700, color: '#f8fafc' }}>
               ajies@terminal:~ (zsh)
             </span>
           </div>
@@ -198,8 +199,8 @@ export default function DevConsoleModal({ isOpen, onClose }) {
             flexGrow: 1,
             padding: '1.25rem',
             overflowY: 'auto',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.85rem',
+            fontFamily: "var(--font-terminal, 'Consolas', 'Courier New', monospace)",
+            fontSize: '0.9rem',
             lineHeight: 1.6
           }}
         >
@@ -235,7 +236,7 @@ export default function DevConsoleModal({ isOpen, onClose }) {
             borderTop: '1px solid rgba(255, 255, 255, 0.08)'
           }}
         >
-          <span style={{ color: '#22d3ee', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>$</span>
+          <span style={{ color: '#22d3ee', fontFamily: "var(--font-terminal, 'Consolas', 'Courier New', monospace)", fontWeight: 700 }}>$</span>
           <input
             ref={inputRef}
             type="text"
@@ -248,8 +249,8 @@ export default function DevConsoleModal({ isOpen, onClose }) {
               border: 'none',
               outline: 'none',
               color: '#fff',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.88rem'
+              fontFamily: "var(--font-terminal, 'Consolas', 'Courier New', monospace)",
+              fontSize: '0.9rem'
             }}
           />
           <button
