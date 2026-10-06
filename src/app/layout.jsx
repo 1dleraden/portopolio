@@ -2,7 +2,7 @@ import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 
 export const metadata = {
-  title: 'Putra Raden Al Aziz (ajies) — Web Developer & Game Dev Portfolio',
+  title: 'ajies portofolio',
   description: 'Portofolio profesional Putra Raden Al Aziz (ajies). Web Developer & Game Dev asal Bogor, Indonesia. Spesialisasi Next.js, React, UI modern, dan game prototyping.',
   keywords: [
     'Putra Raden Al Aziz',
@@ -20,7 +20,7 @@ export const metadata = {
     type: 'website',
     locale: 'id_ID',
     url: 'https://github.com/1dleraden',
-    title: 'Putra Raden Al Aziz — Web Developer & Game Dev Portfolio',
+    title: 'ajies portofolio',
     description: 'Portofolio resmi Putra Raden Al Aziz (ajies). Menampilkan karya aplikasi web modern dan gim interaktif.',
     siteName: 'ajies.dev'
   }
