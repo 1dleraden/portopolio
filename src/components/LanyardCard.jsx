@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { RotateCw, ShieldCheck, Sparkles, ExternalLink, Move } from 'lucide-react';
+import { RotateCw, ShieldCheck, Sparkles, ExternalLink } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
 export default function LanyardCard() {
@@ -1098,28 +1098,6 @@ export default function LanyardCard() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Physics & Drag Interaction Hint */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          marginTop: '14px',
-          padding: '0.35rem 0.85rem',
-          borderRadius: '9999px',
-          background: 'rgba(255, 255, 255, 0.04)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          fontSize: '0.7rem',
-          color: '#94a3b8',
-          fontFamily: 'var(--font-mono)',
-          transition: 'all 0.2s',
-          cursor: 'grab'
-        }}
-      >
-        <Move size={12} color="#22d3ee" />
-        <span>Tarik / Ayunkan Lanyard Bebas • 120 FPS Buttery Smooth</span>
       </div>
     </div>
   );

@@ -258,6 +258,61 @@ export default function MusicPlayer({ autoPlay = false }) {
       genre: '90s Alt-Rock • Dream Pop',
       duration: '4:14',
       isAudioFile: true
+    },
+    {
+      id: 12,
+      title: 'Let You Break My Heart Again',
+      artist: 'Laufey feat. Philharmonia Orchestra',
+      album: 'Typical of Me',
+      cover: '/artists/laufey.jpg',
+      src: '/music/let-you-break-my-heart-again.mp3',
+      genre: 'Grand Orchestral Jazz',
+      duration: '4:21',
+      isAudioFile: true
+    },
+    {
+      id: 13,
+      title: 'Too Little Too Late',
+      artist: 'Laufey',
+      album: 'Typical of Me',
+      cover: '/artists/laufey.jpg',
+      src: '/music/too-little-too-late.mp3',
+      genre: 'Acoustic Bossa Nova',
+      duration: '3:05',
+      isAudioFile: true
+    },
+    {
+      id: 14,
+      title: 'From the Start',
+      artist: 'Laufey',
+      album: 'Bewitched',
+      cover: '/artists/laufey.jpg',
+      src: '/music/from-the-start.mp3',
+      genre: 'Upbeat Modern Bossa Nova',
+      duration: '2:49',
+      isAudioFile: true
+    },
+    {
+      id: 15,
+      title: 'Valentine',
+      artist: 'Laufey',
+      album: 'Everything I Know About Love',
+      cover: '/artists/laufey.jpg',
+      src: '/music/valentine.mp3',
+      genre: 'Vintage Jazz Pop Romance',
+      duration: '3:00',
+      isAudioFile: true
+    },
+    {
+      id: 16,
+      title: 'Promise',
+      artist: 'Laufey',
+      album: 'Bewitched',
+      cover: '/artists/laufey.jpg',
+      src: '/music/promise.mp3',
+      genre: 'Tearjerker Piano Ballad',
+      duration: '3:54',
+      isAudioFile: true
     }
   ];
 

@@ -159,7 +159,9 @@ export const topArtists = [
         year: '2021',
         duration: '4:21',
         vibe: 'Grand Orchestral Jazz & Melancholic Longing',
-        note: 'Balada vokal megah berpadu dengan gesekan dawai Philharmonia Orchestra yang magis dan menyayat hati.'
+        note: 'Balada vokal megah berpadu dengan gesekan dawai Philharmonia Orchestra yang magis dan menyayat hati.',
+        src: '/music/let-you-break-my-heart-again.mp3',
+        playable: true
       },
       {
         rank: 2,
@@ -168,7 +170,9 @@ export const topArtists = [
         year: '2021',
         duration: '3:05',
         vibe: 'Acoustic Bossa Nova & Bittersweet Goodbye',
-        note: 'Petikan gitar lembut bergaya bossa nova dengan vokal intim tentang melepaskan masa lalu.'
+        note: 'Petikan gitar lembut bergaya bossa nova dengan vokal intim tentang melepaskan masa lalu.',
+        src: '/music/too-little-too-late.mp3',
+        playable: true
       },
       {
         rank: 3,
@@ -177,7 +181,9 @@ export const topArtists = [
         year: '2023',
         duration: '2:49',
         vibe: 'Upbeat Bossa Nova & Playful Yearning',
-        note: 'Lagu anthem cinta bertepuk sebelah tangan paling viral dengan ketukan bossa nova ceria dan lirik yang sangat catchy.'
+        note: 'Lagu anthem cinta bertepuk sebelah tangan paling viral dengan ketukan bossa nova ceria dan lirik yang sangat catchy.',
+        src: '/music/from-the-start.mp3',
+        playable: true
       },
       {
         rank: 4,
@@ -186,7 +192,9 @@ export const topArtists = [
         year: '2022',
         duration: '3:00',
         vibe: 'Dreamy Vintage Romance & Lush Harmonies',
-        note: '"I\'ve rejected affection for years and years, now I have it and damn it, it\'s terrifying." Romansa vintage yang manis.'
+        note: '"I\'ve rejected affection for years and years, now I have it and damn it, it\'s terrifying." Romansa vintage yang manis.',
+        src: '/music/valentine.mp3',
+        playable: true
       },
       {
         rank: 5,
@@ -195,7 +203,9 @@ export const topArtists = [
         year: '2023',
         duration: '3:54',
         vibe: 'Tearjerker Piano Ballad & Deep Emotion',
-        note: 'Balada piano emosional tentang janji untuk saling menjaga jarak demi menyembuhkan luka yang tak kunjung hilang.'
+        note: 'Balada piano emosional tentang janji untuk saling menjaga jarak demi menyembuhkan luka yang tak kunjung hilang.',
+        src: '/music/promise.mp3',
+        playable: true
       }
     ]
   }
