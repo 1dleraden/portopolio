@@ -270,7 +270,7 @@ export default function MiniGame() {
               Cyber Runner <span className="gradient-text-purple">Mini Arena</span>
             </h2>
             <p className="section-subtitle" style={{ margin: '0 auto' }}>
-              Bukti nyata kemampuan Game Development saya. Ditenagai oleh custom Canvas loop & kalkulasi fisika 60 FPS.
+              Hands-on demonstration of interactive game mechanics powered by custom Canvas physics and a 60 FPS loop.
             </p>
           </div>
         </ScrollReveal>
@@ -304,14 +304,14 @@ export default function MiniGame() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Zap size={16} color="#ffffff" />
               <span style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
-                Skor: <strong style={{ color: '#fff', fontSize: '1.1rem' }}>{score}</strong>
+                Score: <strong style={{ color: '#fff', fontSize: '1.1rem' }}>{score}</strong>
               </span>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Trophy size={16} color="#ffffff" />
               <span style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
-                Rekor Terbaik: <strong style={{ color: '#ffffff', fontSize: '1.1rem' }}>{highScore}</strong>
+                High Score: <strong style={{ color: '#ffffff', fontSize: '1.1rem' }}>{highScore}</strong>
               </span>
             </div>
           </div>
@@ -357,11 +357,11 @@ export default function MiniGame() {
                       GAME OVER!
                     </h3>
                     <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
-                      Skor kamu: <strong style={{ color: '#ffffff' }}>{score}</strong> • Rekor: <strong style={{ color: '#ffffff' }}>{highScore}</strong>
+                      Your score: <strong style={{ color: '#ffffff' }}>{score}</strong> • High score: <strong style={{ color: '#ffffff' }}>{highScore}</strong>
                     </p>
                     <button onClick={startGame} className="btn btn-primary">
                       <RotateCcw size={16} />
-                      <span>Main Lagi</span>
+                      <span>Play Again</span>
                     </button>
                   </>
                 ) : (
@@ -383,14 +383,14 @@ export default function MiniGame() {
                       <Gamepad2 size={28} color="#fff" />
                     </div>
                     <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem', color: '#fff' }}>
-                      Mulai Mainkan Cyber Runner
+                      Launch Cyber Runner
                     </h3>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '380px', marginBottom: '1.5rem' }}>
-                      Gunakan tombol <strong>A / D</strong> atau <strong>Panah Kiri / Kanan</strong>. Kumpulkan kristal ungu dan hindari rintangan merah!
+                      Use <strong>A / D</strong> keys or <strong>Left / Right Arrows</strong>. Collect energy crystals and dodge obstacles!
                     </p>
                     <button onClick={startGame} className="btn btn-primary" style={{ padding: '0.8rem 2rem' }}>
                       <Play size={18} />
-                      <span>Mulai Main Sekarang</span>
+                      <span>Start Game Now</span>
                     </button>
                   </>
                 )}

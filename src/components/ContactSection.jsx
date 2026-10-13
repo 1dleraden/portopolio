@@ -250,13 +250,13 @@ export default function ContactSection() {
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div className="section-tag section-tag-purple">
               <Sparkles size={14} />
-              <span>Kotak Suara & Feedback</span>
+              <span>Guestbook & Feedback</span>
             </div>
             <h2 className="section-title">
-              Kritik, Saran & <span className="gradient-text">Suara Pengunjung</span>
+              Community Feedback & <span className="gradient-text">Visitor Voices</span>
             </h2>
             <p className="section-subtitle" style={{ margin: '0 auto', maxWidth: '640px' }}>
-              Punya saran fitur baru, kritik tampilan, atau masukan untuk website ini? Tuliskan komentar Anda di bawah — masukan Anda langsung tampil secara publik!
+              Have suggestions for new features, design ideas, or project feedback? Drop your message below — it updates publicly in real time!
             </p>
           </div>
         </ScrollReveal>
@@ -300,10 +300,10 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff', lineHeight: 1.2 }}>
-                    Beri Kritik & Saran
+                    Leave Feedback & Thoughts
                   </h3>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                    // TERBUKA UNTUK SEMUA PENGUNJUNG
+                    // OPEN TO ALL VISITORS
                   </span>
                 </div>
               </div>
@@ -487,7 +487,7 @@ export default function ContactSection() {
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>
-                      Suara Pengunjung
+                      Visitor Voices
                     </h3>
                     <span
                       style={{
@@ -508,7 +508,7 @@ export default function ContactSection() {
                     </span>
                   </div>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    Masukan dan opini yang langsung tampil tanpa sensor.
+                    Public messages and feedback displayed live in real-time.
                   </p>
                 </div>
 

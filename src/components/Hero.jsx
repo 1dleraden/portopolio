@@ -137,7 +137,7 @@ export default function Hero({ onOpenGame, onOpenResume }) {
             {/* Main Headline */}
             <div>
               <p style={{ fontSize: '1rem', color: '#a78bfa', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.5rem', fontFamily: 'var(--font-mono)' }}>
-                Halo, Dunia! Saya
+                Hello, World! I am
               </p>
               <h1 style={{ margin: '0 0 1rem 0', padding: 0 }}>
                 <span className="sr-only">Putra Raden Al Aziz</span>
@@ -179,7 +179,7 @@ export default function Hero({ onOpenGame, onOpenResume }) {
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minHeight: '2.4rem' }}>
                 <span style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.7rem)', color: 'var(--text-secondary)', fontWeight: 500 }}>
-                  Seorang
+                  A Creative
                 </span>
                 <span 
                   className="gradient-text-cyan font-mono" 
@@ -198,7 +198,7 @@ export default function Hero({ onOpenGame, onOpenResume }) {
             {/* CTA Buttons */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', paddingTop: '0.5rem' }}>
               <a href="#projects" className="btn btn-primary">
-                <span>Eksplorasi Proyek</span>
+                <span>Explore Projects</span>
                 <ArrowRight size={17} />
               </a>
 
@@ -210,10 +210,10 @@ export default function Hero({ onOpenGame, onOpenResume }) {
               <button 
                 onClick={copyEmail}
                 className="btn btn-secondary"
-                title="Salin alamat email"
+                title="Copy email address"
               >
                 {copiedEmail ? <Check size={16} color="#10b981" /> : <Copy size={16} />}
-                <span>{copiedEmail ? 'Email Disalin!' : 'Salin Email'}</span>
+                <span>{copiedEmail ? 'Email Copied!' : 'Copy Email'}</span>
               </button>
             </div>
 

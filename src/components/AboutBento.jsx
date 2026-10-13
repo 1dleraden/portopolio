@@ -100,11 +100,11 @@ export default function AboutBento() {
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
             <div className="section-tag section-tag-cyan">
               <Sparkles size={14} />
-              <span>Tentang Saya</span>
+              <span>About Me</span>
             </div>
             <h2 className="section-title">
-              Membangun Jembatan Antara <br />
-              <span className="gradient-text">Logika Komputasi</span> & <span className="gradient-text-purple">Estetika Interaktif</span>
+              Bridging the Gap Between <br />
+              <span className="gradient-text">Computational Logic</span> & <span className="gradient-text-purple">Interactive Aesthetics</span>
             </h2>
             <p className="section-subtitle" style={{ margin: '0 auto' }}>
               Dari baris kode awal hingga desain antarmuka yang memikat, berikut sekilas tentang pola pikir, lingkungan, dan etos kerja saya.
@@ -137,7 +137,7 @@ export default function AboutBento() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#c4b5fd', marginBottom: '1rem' }}>
                   <Compass size={20} />
                   <span style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
-                    Perjalanan & Filosofi
+                    Journey & Philosophy
                   </span>
                 </div>
                 <h3 style={{ fontSize: '1.65rem', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.3 }}>
@@ -185,7 +185,7 @@ export default function AboutBento() {
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
                   <span style={{ fontSize: '0.8rem', color: '#e4e4e7', fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
-                    ZONA WAKTU
+                    CURRENT TIMEZONE
                   </span>
                   <span className="status-dot" />
                 </div>
@@ -296,16 +296,16 @@ export default function AboutBento() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#22d3ee', marginBottom: '1rem' }}>
                 <Lightbulb size={18} />
                 <span style={{ fontSize: '0.8rem', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
-                  WORKFLOW SAYA
+                  MY WORKFLOW
                 </span>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                 {[
-                  { step: '01', title: 'Analisis & Riset Ide', desc: 'Memahami tujuan pengguna & fungsionalitas' },
-                  { step: '02', title: 'Desain & UI Prototyping', desc: 'Wireframe modern dengan estetika dark mode' },
-                  { step: '03', title: 'Koding & Integrasi', desc: 'Menulis kode modular, responsif, dan teruji' },
-                  { step: '04', title: 'Optimasi & Deployment', desc: 'Lighthouse score tinggi & zero broken links' }
+                  { step: '01', title: 'Analysis & Ideation', desc: 'Memahami tujuan pengguna & fungsionalitas' },
+                  { step: '02', title: 'Design & Prototyping', desc: 'Wireframe modern dengan estetika dark mode' },
+                  { step: '03', title: 'Development & Integration', desc: 'Menulis kode modular, responsif, dan teruji' },
+                  { step: '04', title: 'Optimization & Deployment', desc: 'Lighthouse score tinggi & zero broken links' }
                 ].map((item) => (
                   <div key={item.step} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
                     <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#a78bfa', fontWeight: 700, marginTop: '2px' }}>
@@ -336,7 +336,7 @@ export default function AboutBento() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10b981', marginBottom: '1rem' }}>
                 <CheckCircle2 size={18} />
                 <span style={{ fontSize: '0.8rem', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
-                  ETOS & FAKTA MENARIK
+                  TRAITS & HIGHLIGHTS
                 </span>
               </div>
 

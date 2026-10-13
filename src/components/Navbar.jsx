@@ -124,11 +124,11 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
           className="desktop-nav"
         >
           {[
-            { id: 'about', label: 'Tentang' },
-            { id: 'skills', label: 'Keahlian' },
-            { id: 'projects', label: 'Proyek' },
+            { id: 'about', label: 'About' },
+            { id: 'skills', label: 'Skills' },
+            { id: 'projects', label: 'Projects' },
             { id: 'game', label: 'Game Arena' },
-            { id: 'contact', label: 'Kritik & Saran' }
+            { id: 'contact', label: 'Feedback' }
           ].map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -266,12 +266,12 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
           }}
         >
           {[
-            { id: 'hero', label: 'Beranda' },
-            { id: 'about', label: 'Tentang Saya' },
-            { id: 'skills', label: 'Keahlian & Tech Stack' },
-            { id: 'projects', label: 'Karya Proyek' },
+            { id: 'hero', label: 'Home' },
+            { id: 'about', label: 'About Me' },
+            { id: 'skills', label: 'Skills & Tech Stack' },
+            { id: 'projects', label: 'Featured Projects' },
             { id: 'game', label: 'Game Arena' },
-            { id: 'contact', label: 'Kritik & Saran' }
+            { id: 'contact', label: 'Feedback & Contact' }
           ].map((item) => (
             <button
               key={item.id}

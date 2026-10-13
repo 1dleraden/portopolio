@@ -111,20 +111,20 @@ export default function ResumeModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          {/* Profil Singkat */}
+          {/* Summary */}
           <div style={{ marginBottom: '1.75rem' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#c4b5fd', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>
-              Profil Singkat
+              Professional Summary
             </h3>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem' }}>
               Siswa Pengembangan Perangkat Lunak dan Gim (PPLG) dengan dedikasi tinggi dalam menciptakan antarmuka web yang estetis, cepat, dan responsif. Berpengalaman membangun aplikasi web berbasis Next.js, PHP, dan basis data MySQL, serta aktif bereksperimen dengan game mechanics dan logika komputasi.
             </p>
           </div>
 
-          {/* Pendidikan */}
+          {/* Education */}
           <div style={{ marginBottom: '1.75rem' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#c4b5fd', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>
-              Pendidikan
+              Education
             </h3>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -137,10 +137,10 @@ export default function ResumeModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          {/* Keahlian Utama */}
+          {/* Technical Skills */}
           <div style={{ marginBottom: '1.75rem' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#c4b5fd', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>
-              Keahlian Teknis
+              Technical Skills
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem', fontSize: '0.9rem' }}>
               <div><strong>Frontend:</strong> Next.js, React, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS</div>
@@ -150,10 +150,10 @@ export default function ResumeModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          {/* Proyek Unggulan */}
+          {/* Featured Projects */}
           <div>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#c4b5fd', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
-              Karya Proyek Unggulan
+              Featured Projects & Case Studies
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>

@@ -312,7 +312,7 @@ export default function SkillsSection() {
   }, []);
 
   const categories = [
-    { id: 'all', label: 'Semua Keahlian' },
+    { id: 'all', label: 'All Skills' },
     { id: 'frontend', label: 'Frontend' },
     { id: 'backend', label: 'Backend' },
     { id: 'database', label: 'Database' },
@@ -454,7 +454,7 @@ export default function SkillsSection() {
             }}
           >
             <Sparkles size={14} />
-            <span>Keahlian & Teknologi</span>
+            <span>Skills & Technologies</span>
           </div>
 
           <h2
@@ -466,7 +466,7 @@ export default function SkillsSection() {
               transition: 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 120ms, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 120ms, filter 0.7s 120ms'
             }}
           >
-            Persenjataan <span className="gradient-text-purple">Teknologi</span> Saya
+            My Technical <span className="gradient-text-purple">Arsenal</span>
           </h2>
 
           <p
@@ -479,7 +479,7 @@ export default function SkillsSection() {
               transition: 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 220ms, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 220ms, filter 0.7s 220ms'
             }}
           >
-            Kombinasi alat modern untuk merancang pengalaman web interaktif dan mengembangkan game yang seru.
+            A modern combination of tools and technologies for crafting interactive web experiences and games.
           </p>
 
           {/* LogoLoop Infinite Marquee from React Bits */}

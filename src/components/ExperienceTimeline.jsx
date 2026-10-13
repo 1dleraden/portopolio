@@ -40,13 +40,13 @@ export default function ExperienceTimeline() {
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
             <div className="section-tag">
               <Sparkles size={14} />
-              <span>Peta Perjalanan & Milestone</span>
+              <span>Journey & Milestones</span>
             </div>
             <h2 className="section-title">
-              Evolusi & <span className="gradient-text-purple">Pengalaman Belajar</span>
+              Evolution & <span className="gradient-text-purple">Learning Journey</span>
             </h2>
             <p className="section-subtitle" style={{ margin: '0 auto' }}>
-              Perjalanan konsisten dari baris kode pertama hingga pengembangan sistem modern.
+              A consistent journey from the first line of code to modern system development.
             </p>
           </div>
         </ScrollReveal>

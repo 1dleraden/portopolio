@@ -233,13 +233,13 @@ export default function ProjectsSection() {
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div className="section-tag section-tag-cyan">
               <Sparkles size={14} />
-              <span>Karya & Integrasi GitHub</span>
+              <span>Featured Projects & GitHub</span>
             </div>
             <h2 className="section-title">
-              Proyek Nyata yang Telah <span className="gradient-text">Saya Kembangkan</span>
+              Selected Projects & <span className="gradient-text">Works</span>
             </h2>
             <p className="section-subtitle" style={{ margin: '0 auto' }}>
-              Terhubung langsung ke repositori resmi <strong>@1dleraden</strong> di GitHub. Jelajahi arsitektur, source code, dan live demo dari tiap proyek.
+              Connected live to official GitHub repositories. Explore system architectures, source codes, and interactive demos.
             </p>
 
             {/* Live GitHub Status Card */}
@@ -329,7 +329,7 @@ export default function ProjectsSection() {
                 }}
               >
                 <Sparkles size={15} />
-                <span>⭐ Proyek Unggulan (Case Studies)</span>
+                <span>⭐ Featured Projects (Case Studies)</span>
               </button>
 
               <button
@@ -351,7 +351,7 @@ export default function ProjectsSection() {
                 }}
               >
                 <FolderGit2 size={15} />
-                <span>⚡ Live Repositori GitHub ({githubData?.totalRepos || 7})</span>
+                <span>⚡ Live GitHub Repositories ({githubData?.totalRepos || 7})</span>
               </button>
             </div>
 
@@ -367,7 +367,7 @@ export default function ProjectsSection() {
                 }}
               >
                 {[
-                  { id: 'all', label: 'Semua Proyek' },
+                  { id: 'all', label: 'All Projects' },
                   { id: 'web', label: 'Web Applications' },
                   { id: 'creative', label: 'Creative & Interactive' },
                   { id: 'game', label: 'Game Dev' }
