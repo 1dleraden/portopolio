@@ -33,14 +33,14 @@ export default function Footer() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem' }}>
               <span className="gradient-text" style={{ fontSize: '1.25rem', fontWeight: 900 }}>
-                ajies.dev
+                ajies.astro
               </span>
-              <span style={{ fontSize: '0.75rem', color: '#c4b5fd', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: '0.75rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>
                 • Putra Raden Al Aziz
               </span>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-              Membangun website modern dan eksplorasi gim interaktif dari Bogor, Indonesia.
+              Eksplorasi rekayasa web modern dan gim interaktif dari stasiun observatorium Bogor, Indonesia.
             </p>
           </div>
 
@@ -143,7 +143,7 @@ export default function Footer() {
         >
           <span>© 2026 Putra Raden Al Aziz. All rights reserved.</span>
           <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            Built with Next.js 16 & React 19 • Designed with Passion
+            Starlight Architecture with Next.js 16 &amp; React 19 • Celestial Aesthetics
           </span>
         </div>
       </div>

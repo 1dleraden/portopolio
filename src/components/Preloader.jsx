@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Cpu, Terminal, Sparkles, CheckCircle2, Play, Volume2 } from 'lucide-react';
+import DitherVeil from './DitherVeil';
 
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -65,14 +66,14 @@ export default function Preloader({ onComplete }) {
       preloadAudio.load();
     } catch (e) {}
 
-    // 2. Dynamic loading sequence
+    // 2. Dynamic loading sequence (Astronomy Observatory Calibration)
     const stages = [
-      { at: 15, text: 'MEMUAT MODUL INTI & KERNEL REACT 19...' },
-      { at: 35, text: 'MENGINISIALISASI SHADER STARFIELD 60 FPS...' },
-      { at: 55, text: 'MERAKIT LANYARD ID PASS 3D & FISIKA PEGAS...' },
-      { at: 75, text: 'MENGHUBUNGKAN PROTOKOL AUDIO PORTFOLIO...' },
-      { at: 92, text: 'MENYIAPKAN ARENA GAME & BENTO GRID...' },
-      { at: 100, text: 'SISTEM SIAP // SELAMAT DATANG!' }
+      { at: 15, text: 'MENYELARASKAN TELESKOP & KOORDINAT KOSMIK...' },
+      { at: 35, text: 'MEMUAT MATRIKS DITHER & SPEKTRUM BINTANG...' },
+      { at: 55, text: 'MERAKIT ORBITAL PASS 3D & FISIKA GRAVITASI...' },
+      { at: 75, text: 'MENGHUBUNGKAN FREKUENSI AUDIO KOSMOS...' },
+      { at: 92, text: 'MENYIAPKAN PETA KONSTELASI & ARENA KOSMIK...' },
+      { at: 100, text: 'ORBITAL RUNTIME SIAP // SELAMAT DATANG DI KOSMOS!' }
     ];
 
     let currentVal = 0;
@@ -187,24 +188,89 @@ export default function Preloader({ onComplete }) {
           textAlign: 'center'
         }}
       >
-        {/* Glowing Icon Box */}
+        {/* Interactive DitherVeil Holographic Scanner */}
         <div
           style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '16px',
-            background: 'rgba(6, 25, 40, 0.85)',
+            position: 'relative',
+            width: '100%',
+            maxWidth: '280px',
+            height: '350px',
+            borderRadius: '20px',
+            overflow: 'hidden',
             border: '1.5px solid rgba(6, 182, 212, 0.45)',
-            boxShadow: '0 0 30px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.2)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#22d3ee',
-            marginBottom: '1.5rem',
-            animation: 'pulseGlow 2.5s ease-in-out infinite'
+            boxShadow: '0 16px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(6, 182, 212, 0.25)',
+            background: '#120f17',
+            marginBottom: '1.25rem'
           }}
         >
-          <Cpu size={28} />
+          <DitherVeil
+            src="/dither-head.jpg"
+            pattern="floyd"
+            fit="contain"
+            pixelSize={2}
+            inkColor="#120f17"
+            paperColor="#f4f1ea"
+            rimColor="#a78bfa"
+            rim={0.06}
+            revealRadius={180}
+            softness={0.6}
+            linger={1}
+            wander={true}
+            clickBurst={true}
+          />
+
+          {/* Top Hologram Status Pill */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '10px',
+              left: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.22rem 0.6rem',
+              borderRadius: '9999px',
+              background: 'rgba(3, 7, 18, 0.75)',
+              backdropFilter: 'blur(8px)',
+              border: '1px solid rgba(6, 182, 212, 0.4)',
+              zIndex: 10,
+              pointerEvents: 'none'
+            }}
+          >
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+            <span style={{ fontSize: '0.66rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#38bdf8', letterSpacing: '0.08em' }}>
+              CELESTIAL VEIL // OBSERVATORY
+            </span>
+          </div>
+
+          {/* HUD Reticles on Corners */}
+          <div style={{ position: 'absolute', top: '8px', right: '8px', width: '14px', height: '14px', borderTop: '2px solid #22d3ee', borderRight: '2px solid #22d3ee', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: '8px', left: '8px', width: '14px', height: '14px', borderBottom: '2px solid #22d3ee', borderLeft: '2px solid #22d3ee', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: '8px', right: '8px', width: '14px', height: '14px', borderBottom: '2px solid #22d3ee', borderRight: '2px solid #22d3ee', pointerEvents: 'none' }} />
+
+          {/* Interactive Veil Hint Badge at bottom */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '10px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              padding: '0.2rem 0.7rem',
+              borderRadius: '6px',
+              background: 'rgba(3, 7, 18, 0.82)',
+              backdropFilter: 'blur(6px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              fontSize: '0.62rem',
+              fontFamily: 'var(--font-mono)',
+              color: '#94a3b8',
+              letterSpacing: '0.04em',
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+              zIndex: 10
+            }}
+          >
+            <span className="star-twinkle" style={{ color: '#22d3ee', marginRight: '4px' }}>✦</span> Arahkan kursor / klik untuk menjelajah starlight veil
+          </div>
         </div>
 
         {/* Title & Role */}
@@ -233,7 +299,7 @@ export default function Preloader({ onComplete }) {
             marginBottom: '1.85rem'
           }}
         >
-          ARSITEK FRONTEND &amp; GAME DEVELOPER
+          CELESTIAL DEVELOPER &amp; GAME ENGINEER
         </p>
 
         {/* Loading Progress Track */}
@@ -253,7 +319,7 @@ export default function Preloader({ onComplete }) {
               style={{
                 height: '100%',
                 width: `${progress}%`,
-                background: 'linear-gradient(90deg, #06b6d4 0%, #38bdf8 50%, #10b981 100%)',
+                background: 'linear-gradient(90deg, #06b6d4 0%, #38bdf8 50%, #c084fc 100%)',
                 borderRadius: '9999px',
                 boxShadow: '0 0 14px rgba(6, 182, 212, 0.65)',
                 transition: 'width 0.06s ease-out'
@@ -301,7 +367,7 @@ export default function Preloader({ onComplete }) {
                 gap: '0.65rem',
                 padding: '0.85rem 2rem',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(16, 185, 129, 0.3) 100%)',
+                background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(192, 132, 252, 0.3) 100%)',
                 border: '1.5px solid #22d3ee',
                 boxShadow: '0 0 30px rgba(6, 182, 212, 0.5), inset 0 0 15px rgba(6, 182, 212, 0.25)',
                 color: '#ffffff',
@@ -316,10 +382,11 @@ export default function Preloader({ onComplete }) {
               }}
               onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.04)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
-              title="Masuk ke Portofolio"
+              title="Masuk ke Kosmos Portofolio"
             >
               <Play size={16} fill="#22d3ee" color="#22d3ee" />
-              <span>MASUK</span>
+              <span>MASUK KE KOSMOS</span>
+              <span className="star-twinkle" style={{ color: '#fde047', fontSize: '1rem', marginLeft: '2px' }}>✦</span>
             </button>
 
             <span style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.65rem', fontFamily: 'var(--font-mono)', letterSpacing: '0.04em' }}>
@@ -345,9 +412,9 @@ export default function Preloader({ onComplete }) {
             }}
             onMouseEnter={(e) => { e.currentTarget.style.color = '#e2e8f0'; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; }}
-            title="Langsung Masuk ke Halaman Web dan Mulai Musik"
+            title="Langsung Masuk ke Kosmos"
           >
-            [ LEWATI INISIALISASI ]
+            [ LEWATI INISIALISASI ORBITAL ]
           </button>
         )}
       </div>
@@ -364,11 +431,11 @@ export default function Preloader({ onComplete }) {
           justifyContent: 'space-between',
           fontSize: '0.68rem',
           fontFamily: 'var(--font-mono)',
-          color: '#475569'
+          color: '#64748b'
         }}
       >
-        <span>STATUS: 200 OK • BOGOR, ID</span>
-        <span>LATENSI: 12ms // STABIL</span>
+        <span>OBSERVATORIUM: BOGOR, ID • 106.8°E, 6.6°S</span>
+        <span>VELOSITAS ORBITAL: 7.8 KM/S // STABIL</span>
       </div>
 
       <style jsx>{`

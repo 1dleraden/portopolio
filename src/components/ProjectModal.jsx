@@ -42,7 +42,7 @@ export default function ProjectModal({ project, onClose }) {
           <div>
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
               <span className="badge badge-purple">{project.categoryLabel}</span>
-              <span className="badge badge-emerald">Aktif & Terverifikasi</span>
+              <span className="badge badge-cyan">✦ Orbital Verified &amp; Operational</span>
             </div>
             <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff' }}>
               {project.title}

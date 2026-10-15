@@ -250,13 +250,13 @@ export default function ContactSection() {
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div className="section-tag section-tag-purple">
               <Sparkles size={14} />
-              <span>Guestbook & Feedback</span>
+              <span>✦ Cosmic Transmission &amp; Guestbook</span>
             </div>
             <h2 className="section-title">
-              Community Feedback & <span className="gradient-text">Visitor Voices</span>
+              Galactic Transmission &amp; <span className="gradient-text">Visitor Voices</span>
             </h2>
             <p className="section-subtitle" style={{ margin: '0 auto', maxWidth: '640px' }}>
-              Have suggestions for new features, design ideas, or project feedback? Drop your message below — it updates publicly in real time!
+              Kirimkan transmisi sinyal, kritik konstruktif, ide desain, atau saran pengembangan langsung ke stasiun observatorium ini — pesan tampil secara real-time!
             </p>
           </div>
         </ScrollReveal>

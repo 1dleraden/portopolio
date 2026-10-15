@@ -6,8 +6,8 @@ import { Terminal, X, Minimize2, CornerDownLeft, Sparkles } from 'lucide-react';
 export default function DevConsoleModal({ isOpen, onClose }) {
   const [inputVal, setInputVal] = useState('');
   const [history, setHistory] = useState([
-    { type: 'system', text: '⚡ Putra Raden Al Aziz (ajies) — Developer Interactive Shell v2.4' },
-    { type: 'system', text: 'Ketik "help" untuk melihat daftar perintah yang tersedia.' }
+    { type: 'system', text: '✦ Putra Raden Al Aziz (ajies) — Celestial Observatory Shell & Telemetry Terminal v2.4' },
+    { type: 'system', text: 'Stasiun Pengamatan: Bogor, ID • Orbit: LEO 420KM • Ketik "help" untuk panduan transmisi.' }
   ]);
 
   const inputRef = useRef(null);
@@ -29,64 +29,74 @@ export default function DevConsoleModal({ isOpen, onClose }) {
 
   const handleCommand = (cmd) => {
     const trimmed = cmd.trim().toLowerCase();
-    const newEntry = { type: 'user', text: `$ ${cmd}` };
+    const newEntry = { type: 'user', text: `astro@station:~$ ${cmd}` };
 
     let response = [];
 
     switch (trimmed) {
       case 'help':
         response = [
-          'Perintah yang tersedia:',
-          '  • bio       : Informasi ringkas & latar belakang saya',
-          '  • skills    : Persenjataan teknologi & keahlian',
-          '  • projects  : Daftar karya dan arsitektur',
-          '  • contact   : Kontak email, telepon, dan media sosial',
-          '  • game      : Buka arena game mini Cyber Runner',
-          '  • clear     : Bersihkan layar terminal',
-          '  • exit      : Tutup terminal ini'
+          'Protokol perintah stasiun observatorium:',
+          '  • bio       : Data astronot & latar belakang navigasi',
+          '  • skills    : Rasi bintang teknologi & persenjataan kode',
+          '  • projects  : Ekspedisi luar angkasa & arsip misi',
+          '  • contact   : Frekuensi transmisi sinyal & media sosial',
+          '  • game      : Buka simulasi antariksa Cosmic Voyager',
+          '  • orbit     : Status koordinat orbital & telemetri',
+          '  • clear     : Bersihkan layar konsol',
+          '  • exit      : Tutup konsol observatorium ini'
         ];
         break;
 
       case 'bio':
         response = [
-          'Nama: Putra Raden Al Aziz (ajies)',
-          'Lokasi: Bogor, Indonesia',
-          'Fokus: Fullstack Web Development & Game Prototyping',
-          'Status: Siswa Pengembangan Perangkat Lunak dan Gim (PPLG)'
+          'Astronot : Putra Raden Al Aziz (ajies)',
+          'Stasiun  : Observatorium Bogor (106.8°E, 6.6°S)',
+          'Misi     : Fullstack Cosmic Web Engineering & Game Prototyping',
+          'Status   : Siswa Pengembangan Perangkat Lunak dan Gim (PPLG)'
+        ];
+        break;
+
+      case 'orbit':
+        response = [
+          'Status Orbit     : LEO (Low Earth Orbit 420KM)',
+          'Velositas Linear : 7.8 KM/S // STABIL',
+          'Konektivitas     : Deep Space Network Online',
+          'Sistem Navigasi  : Next.js 16 App Router & 60 FPS Canvas Starfield'
         ];
         break;
 
       case 'skills':
         response = [
-          'Frontend : Next.js, React, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS',
-          'Backend  : Node.js, Express, PHP, Python',
-          'Database : MySQL, SQLite, PostgreSQL',
-          'Game Dev : Python (Pygame), Game Physics, 2D Mechanics',
-          'Tools    : VS Code, Git, GitHub, Docker, Figma'
+          'Frontend Nebula : Next.js, React, Modern JS (ES6+), HTML5, CSS3, Tailwind CSS',
+          'Backend Core    : Node.js, Express, PHP, Python',
+          'Data Relics     : MySQL, SQLite, PostgreSQL',
+          'Cosmic Engines  : Python (Pygame), 2D Particle Physics, Collision Loop',
+          'Flight Tools    : VS Code, Git, GitHub, Docker, Figma'
         ];
         break;
 
       case 'projects':
         response = [
-          '1. TaskForge      — Kanban SaaS Dashboard (Next.js, PHP, MySQL)',
-          '2. Cyber Odyssey  — 2D Neon Action Platformer (Python, Pygame)',
-          '3. DevNexus       — Code Snippet & API Studio (React, Web API)',
-          '4. Portfolio V2   — Next.js 16 Web App with Interactive Canvas'
+          '1. Arsyavin      — Sistem Otomasi Sirkulasi Perpustakaan (Laravel 12, MySQL)',
+          '2. TechInf       — Portal Informasi & Berita AI / Cyber (Vercel CI/CD)',
+          '3. Cosmic Voyager — Arena Navigasi Asteroid 2D (Canvas & Web Audio)',
+          '4. Portfolio V2  — Celestial Observatory Next.js 16 Web App'
         ];
         break;
 
       case 'contact':
         response = [
-          'Email     : putraradenn247@gmail.com',
-          'WhatsApp  : +62 838 7764 1571',
-          'GitHub    : https://github.com/1dleraden',
-          'Instagram : https://instagram.com/ptrraden_',
-          'TikTok    : https://tiktok.com/@usrrad3n'
+          'Frekuensi Email  : putraradenn247@gmail.com',
+          'Kanal WhatsApp   : +62 838 7764 1571',
+          'Arsip GitHub     : https://github.com/1dleraden',
+          'Transmisi IG     : https://instagram.com/ptrraden_',
+          'Radar TikTok     : https://tiktok.com/@usrrad3n'
         ];
         break;
 
       case 'game':
-        response = ['Mengalihkan ke Game Arena... Meluncur! 🚀'];
+        response = ['Mengalihkan ke Cosmic Voyager Space Arena... Menembus gravitasi! 🚀'];
         setTimeout(() => {
           onClose();
           const el = document.getElementById('game');
@@ -107,7 +117,7 @@ export default function DevConsoleModal({ isOpen, onClose }) {
         break;
 
       default:
-        response = [`Perintah tidak dikenal: "${cmd}". Ketik "help" untuk panduan.`];
+        response = [`Transmisi tidak dikenal: "${cmd}". Ketik "help" untuk protokol resmi.`];
     }
 
     setHistory((prev) => [
@@ -170,7 +180,7 @@ export default function DevConsoleModal({ isOpen, onClose }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <Terminal size={16} color="#22d3ee" />
             <span style={{ fontSize: '0.85rem', fontFamily: "var(--font-terminal, 'Consolas', 'Courier New', monospace)", fontWeight: 700, color: '#f8fafc' }}>
-              ajies@terminal:~ (zsh)
+              ajies@observatory:~ (cosmic-sh)
             </span>
           </div>
 

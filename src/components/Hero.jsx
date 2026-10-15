@@ -17,10 +17,10 @@ import AeroShards from './AeroShards';
 
 export default function Hero({ onOpenGame, onOpenResume }) {
   const roles = [
-    'Web Developer',
-    'Game Developer',
-    'Frontend & UI Specialist',
-    'Creative Software Engineer'
+    'Frontend & Web Explorer',
+    'Cosmic Game Developer',
+    'Creative Software Astronaut',
+    'UI & Starlight Architect'
   ];
 
   const [roleIndex, setRoleIndex] = useState(0);
@@ -127,17 +127,17 @@ export default function Hero({ onOpenGame, onOpenResume }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             
             {/* Status Pill */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', padding: '0.4rem 1rem', borderRadius: '9999px', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', width: 'fit-content' }}>
-              <span className="status-dot" />
-              <span style={{ fontSize: '0.8rem', color: '#6ee7b7', fontWeight: 600, letterSpacing: '0.02em' }}>
-                Open for Projects & Collaborations • Bogor, ID
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', padding: '0.4rem 1rem', borderRadius: '9999px', background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.35)', width: 'fit-content' }}>
+              <span className="status-dot" style={{ backgroundColor: '#38bdf8', boxShadow: '0 0 10px #38bdf8' }} />
+              <span style={{ fontSize: '0.8rem', color: '#7dd3fc', fontWeight: 600, letterSpacing: '0.02em', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                <span className="star-twinkle" style={{ color: '#38bdf8' }}>✦</span> Celestial Station: Bogor, ID • Ready for Space Missions
               </span>
             </div>
 
             {/* Main Headline */}
             <div>
-              <p style={{ fontSize: '1rem', color: '#a78bfa', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.5rem', fontFamily: 'var(--font-mono)' }}>
-                Hello, World! I am
+              <p style={{ fontSize: '1rem', color: '#c084fc', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.5rem', fontFamily: 'var(--font-mono)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                <span className="star-twinkle" style={{ color: '#c084fc' }}>✦</span> Transmission Inbound • I am
               </p>
               <h1 style={{ margin: '0 0 1rem 0', padding: 0 }}>
                 <span className="sr-only">Putra Raden Al Aziz</span>
@@ -192,28 +192,28 @@ export default function Hero({ onOpenGame, onOpenResume }) {
 
             {/* Tagline / Subtitle */}
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.08rem', lineHeight: 1.75, maxWidth: '540px' }}>
-              Siswa pengembangan perangkat lunak dan gim yang berdedikasi menciptakan website interaktif, modern, cepat, serta game yang menarik secara visual dan mekanik.
+              Menjelajahi luasnya kosmos kode digital — berdedikasi menciptakan website berkecepatan cahaya, visual astronomis yang elegan, serta game yang menantang secara mekanik.
             </p>
 
             {/* CTA Buttons */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', paddingTop: '0.5rem' }}>
               <a href="#projects" className="btn btn-primary">
-                <span>Explore Projects</span>
+                <span>Explore Expeditions</span>
                 <ArrowRight size={17} />
               </a>
 
               <a href="#game" className="btn btn-cyan" onClick={(e) => { e.preventDefault(); const el = document.getElementById('game'); if(el) el.scrollIntoView({behavior:'smooth'}); }}>
                 <Gamepad2 size={18} />
-                <span>Play Game Arena</span>
+                <span>Launch Cosmic Arena</span>
               </a>
 
               <button 
                 onClick={copyEmail}
                 className="btn btn-secondary"
-                title="Copy email address"
+                title="Copy transmission email address"
               >
-                {copiedEmail ? <Check size={16} color="#10b981" /> : <Copy size={16} />}
-                <span>{copiedEmail ? 'Email Copied!' : 'Copy Email'}</span>
+                {copiedEmail ? <Check size={16} color="#38bdf8" /> : <Copy size={16} />}
+                <span>{copiedEmail ? 'Frequency Copied!' : 'Transmit Email'}</span>
               </button>
             </div>
 

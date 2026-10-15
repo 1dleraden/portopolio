@@ -312,11 +312,11 @@ export default function SkillsSection() {
   }, []);
 
   const categories = [
-    { id: 'all', label: 'All Skills' },
-    { id: 'frontend', label: 'Frontend' },
-    { id: 'backend', label: 'Backend' },
-    { id: 'database', label: 'Database' },
-    { id: 'game-tools', label: 'Game & Tools' }
+    { id: 'all', label: 'All Constellations' },
+    { id: 'frontend', label: 'Frontend Nebula' },
+    { id: 'backend', label: 'Backend Core' },
+    { id: 'database', label: 'Data Relics' },
+    { id: 'game-tools', label: 'Cosmic Engines' }
   ];
 
   const skillsData = [
@@ -454,7 +454,7 @@ export default function SkillsSection() {
             }}
           >
             <Sparkles size={14} />
-            <span>Skills & Technologies</span>
+            <span>✦ Constellations &amp; Stack</span>
           </div>
 
           <h2
@@ -466,7 +466,7 @@ export default function SkillsSection() {
               transition: 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 120ms, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 120ms, filter 0.7s 120ms'
             }}
           >
-            My Technical <span className="gradient-text-purple">Arsenal</span>
+            Constellation of <span className="gradient-text-purple">Technical Skills</span>
           </h2>
 
           <p
@@ -479,7 +479,7 @@ export default function SkillsSection() {
               transition: 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 220ms, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 220ms, filter 0.7s 220ms'
             }}
           >
-            A modern combination of tools and technologies for crafting interactive web experiences and games.
+            Peta konstelasi teknologi dan persenjataan digital yang digunakan untuk merakit arsitektur web dan gim interaktif berkecepatan tinggi.
           </p>
 
           {/* LogoLoop Infinite Marquee from React Bits */}

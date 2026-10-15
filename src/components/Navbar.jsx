@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Terminal, FileText, Menu, X, Sparkles, Bot } from 'lucide-react';
+import { Terminal, FileText, Menu, X, Sparkles } from 'lucide-react';
 
 export default function Navbar({ onOpenTerminal, onOpenResume }) {
   const [scrolled, setScrolled] = useState(false);
@@ -100,12 +100,13 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
               fontSize: '0.7rem',
               padding: '0.15rem 0.45rem',
               borderRadius: '4px',
-              background: 'rgba(255, 255, 255, 0.1)',
-              color: '#e4e4e7',
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              color: '#38bdf8',
               fontFamily: 'var(--font-mono)'
             }}
           >
-            v2.0
+            astro.v2
           </span>
         </a>
 
@@ -124,11 +125,11 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
           className="desktop-nav"
         >
           {[
-            { id: 'about', label: 'About' },
-            { id: 'skills', label: 'Skills' },
-            { id: 'projects', label: 'Projects' },
-            { id: 'game', label: 'Game Arena' },
-            { id: 'contact', label: 'Feedback' }
+            { id: 'about', label: 'Observatory' },
+            { id: 'skills', label: 'Constellations' },
+            { id: 'projects', label: 'Expeditions' },
+            { id: 'game', label: 'Cosmic Arena' },
+            { id: 'contact', label: 'Transmission' }
           ].map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -168,30 +169,6 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
 
         {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          {/* AI Chat Trigger */}
-          <button
-            onClick={() => {
-              if (typeof window !== 'undefined') {
-                window.dispatchEvent(new CustomEvent('open-ai-chat'));
-              }
-            }}
-            className="btn btn-secondary btn-sm"
-            title="Tanya Asisten AI Putra Raden"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              padding: '0.5rem 0.85rem',
-              fontSize: '0.82rem',
-              background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(99, 102, 241, 0.12))',
-              borderColor: 'rgba(56, 189, 248, 0.35)',
-              color: '#38bdf8'
-            }}
-          >
-            <Bot size={14} color="#38bdf8" />
-            <span className="hide-mobile">Tanya AI</span>
-          </button>
-
           {/* Terminal Console Trigger */}
           <button
             onClick={onOpenTerminal}
@@ -266,12 +243,12 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
           }}
         >
           {[
-            { id: 'hero', label: 'Home' },
-            { id: 'about', label: 'About Me' },
-            { id: 'skills', label: 'Skills & Tech Stack' },
-            { id: 'projects', label: 'Featured Projects' },
-            { id: 'game', label: 'Game Arena' },
-            { id: 'contact', label: 'Feedback & Contact' }
+            { id: 'hero', label: 'Orbit Home' },
+            { id: 'about', label: 'Observatory (About Me)' },
+            { id: 'skills', label: 'Constellations (Skills)' },
+            { id: 'projects', label: 'Expeditions (Projects)' },
+            { id: 'game', label: 'Cosmic Arena (Game)' },
+            { id: 'contact', label: 'Transmission & Contact' }
           ].map((item) => (
             <button
               key={item.id}
@@ -292,32 +269,6 @@ export default function Navbar({ onOpenTerminal, onOpenResume }) {
             </button>
           ))}
 
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              if (typeof window !== 'undefined') {
-                window.dispatchEvent(new CustomEvent('open-ai-chat'));
-              }
-            }}
-            style={{
-              textAlign: 'left',
-              background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15))',
-              color: '#38bdf8',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
-              padding: '0.75rem 1rem',
-              borderRadius: '8px',
-              fontSize: '0.95rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              marginTop: '0.5rem'
-            }}
-          >
-            <Bot size={18} color="#38bdf8" />
-            <span>Tanya AI Asisten Ajies</span>
-          </button>
         </div>
       )}
 

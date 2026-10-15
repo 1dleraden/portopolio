@@ -133,23 +133,23 @@ export default function TopArtistsModal({
                 width: '34px',
                 height: '34px',
                 borderRadius: '10px',
-                background: 'linear-gradient(135deg, #f43f5e, #fb7185)',
+                background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#fff',
-                boxShadow: '0 0 15px rgba(244, 63, 94, 0.4)',
+                boxShadow: '0 0 15px rgba(56, 189, 248, 0.5)',
                 flexShrink: 0
               }}
             >
               <Headphones size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff', lineHeight: 1.25 }}>
-                Top Artist & Lagu Favorit
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff', lineHeight: 1.25, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <span className="star-twinkle" style={{ color: '#38bdf8' }}>✦</span> Celestial Soundwaves &amp; Top Artists
               </h3>
               <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Inspirasi Musikal & Playlist Paling Berpengaruh bagi Putra Raden
+                Frekuensi Musik &amp; Gelombang Audio Penjelajah Kosmik Putra Raden
               </p>
             </div>
           </div>

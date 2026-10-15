@@ -233,13 +233,13 @@ export default function ProjectsSection() {
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div className="section-tag section-tag-cyan">
               <Sparkles size={14} />
-              <span>Featured Projects & GitHub</span>
+              <span>✦ Orbital Missions &amp; Projects</span>
             </div>
             <h2 className="section-title">
-              Selected Projects & <span className="gradient-text">Works</span>
+              Deep-Space Expeditions &amp; <span className="gradient-text">Works</span>
             </h2>
             <p className="section-subtitle" style={{ margin: '0 auto' }}>
-              Connected live to official GitHub repositories. Explore system architectures, source codes, and interactive demos.
+              Terhubung langsung dengan repositori resmi GitHub. Jelajahi arsitektur sistem, source code, dan artefak karya interaktif.
             </p>
 
             {/* Live GitHub Status Card */}
@@ -329,7 +329,7 @@ export default function ProjectsSection() {
                 }}
               >
                 <Sparkles size={15} />
-                <span>⭐ Featured Projects (Case Studies)</span>
+                <span>✦ Major Expeditions (Case Studies)</span>
               </button>
 
               <button
@@ -351,7 +351,7 @@ export default function ProjectsSection() {
                 }}
               >
                 <FolderGit2 size={15} />
-                <span>⚡ Live GitHub Repositories ({githubData?.totalRepos || 7})</span>
+                <span>🛰️ Orbital Repositories Telemetry ({githubData?.totalRepos || 7})</span>
               </button>
             </div>
 

@@ -40,13 +40,13 @@ export default function ExperienceTimeline() {
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
             <div className="section-tag">
               <Sparkles size={14} />
-              <span>Journey & Milestones</span>
+              <span>✦ Flight Log &amp; Milestones</span>
             </div>
             <h2 className="section-title">
-              Evolution & <span className="gradient-text-purple">Learning Journey</span>
+              Cosmic Trajectory &amp; <span className="gradient-text-purple">Learning Journey</span>
             </h2>
             <p className="section-subtitle" style={{ margin: '0 auto' }}>
-              A consistent journey from the first line of code to modern system development.
+              Rekam jejak lintasan penerbangan coding dari inisiasi awal hingga arsitektur web modern.
             </p>
           </div>
         </ScrollReveal>
@@ -62,8 +62,9 @@ export default function ExperienceTimeline() {
               bottom: '10px',
               left: '24px',
               width: '2px',
-              background: 'linear-gradient(to bottom, #ffffff, #71717a, #27272a)',
-              opacity: 0.4
+              background: 'linear-gradient(to bottom, #38bdf8 0%, #818cf8 40%, #c084fc 80%, rgba(56, 189, 248, 0.05) 100%)',
+              boxShadow: '0 0 12px rgba(56, 189, 248, 0.4)',
+              opacity: 0.7
             }}
           />
 
@@ -90,9 +91,9 @@ export default function ExperienceTimeline() {
                     width: '50px',
                     height: '50px',
                     borderRadius: '50%',
-                    background: '#0a0a0c',
-                    border: '2px solid rgba(255, 255, 255, 0.3)',
-                    boxShadow: '0 0 15px rgba(255, 255, 255, 0.1)',
+                    background: '#040714',
+                    border: `2px solid ${item.color}`,
+                    boxShadow: `0 0 20px ${item.color}60`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -100,7 +101,7 @@ export default function ExperienceTimeline() {
                     zIndex: 2
                   }}
                 >
-                  {idx === 0 ? <Rocket size={20} color="#ffffff" /> : idx === 1 ? <Code size={20} color="#ffffff" /> : <Calendar size={20} color="#ffffff" />}
+                  {idx === 0 ? <Rocket size={20} color="#38bdf8" /> : idx === 1 ? <Code size={20} color="#c084fc" /> : <Calendar size={20} color="#f472b6" />}
                 </div>
 
                 {/* Content Card */}

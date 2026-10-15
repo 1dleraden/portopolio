@@ -48,11 +48,11 @@ export default function ResumeModal({ isOpen, onClose }) {
             justifyContent: 'space-between',
             padding: '1.25rem 2rem',
             background: 'rgba(255, 255, 255, 0.04)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+            borderBottom: '1px solid rgba(56, 189, 248, 0.2)'
           }}
         >
-          <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#c4b5fd', fontFamily: 'var(--font-mono)' }}>
-            Curriculum Vitae Preview • Putra Raden Al Aziz
+          <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#38bdf8', fontFamily: 'var(--font-mono)', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+            <span className="star-twinkle">✦</span> Orbital Flight Dossier &amp; CV • Putra Raden Al Aziz
           </span>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -100,11 +100,11 @@ export default function ResumeModal({ isOpen, onClose }) {
             <h1 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.35rem' }}>
               Putra Raden Al Aziz
             </h1>
-            <p style={{ fontSize: '1.1rem', color: '#22d3ee', fontWeight: 600, marginBottom: '0.75rem' }}>
-              Junior Web Developer & Game Development Enthusiast
+            <p style={{ fontSize: '1.1rem', color: '#38bdf8', fontWeight: 600, marginBottom: '0.75rem' }}>
+              Celestial Web Engineer &amp; Cosmic Game Prototyper
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-              <span>📍 Bogor, Jawa Barat, Indonesia</span>
+              <span>🛰️ Stasiun: Bogor, Jawa Barat, Indonesia (106.8°E, 6.6°S)</span>
               <span>✉️ putraradenn247@gmail.com</span>
               <span>📞 +62 838 7764 1571</span>
               <span>🌐 github.com/1dleraden</span>

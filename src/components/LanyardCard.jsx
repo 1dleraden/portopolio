@@ -541,7 +541,7 @@ export default function LanyardCard() {
                         letterSpacing: '0.04em'
                       }}
                     >
-                      AJIES<span style={{ color: '#22d3ee' }}>.ID</span>
+                      AJIES<span style={{ color: '#38bdf8' }}>.ASTRO</span>
                     </span>
 
                     {/* RFID waves */}
@@ -588,7 +588,7 @@ export default function LanyardCard() {
                       letterSpacing: '0.08em'
                     }}
                   >
-                    PASS LEVEL 5
+                    ORBITAL TIER 1
                   </div>
                 </div>
 
@@ -672,11 +672,11 @@ export default function LanyardCard() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                       <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#22d3ee', boxShadow: '0 0 8px #22d3ee' }} />
                       <span style={{ fontSize: '0.72rem', fontWeight: 700, fontFamily: 'var(--font-mono)', color: '#ffffff', letterSpacing: '0.04em' }}>
-                        LATENSI P99: 14.2ms
+                        VELOSITAS: 7.8 KM/S
                       </span>
                     </div>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#22d3ee', letterSpacing: '0.05em' }}>
-                      SLA 99.98%
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#38bdf8', letterSpacing: '0.05em' }}>
+                      ORBIT: LEO 420KM
                     </span>
                   </div>
                 </div>
@@ -687,8 +687,8 @@ export default function LanyardCard() {
                     <h3 style={{ fontSize: '1.2rem', fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
                       Putra Raden Al Aziz
                     </h3>
-                    <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#22d3ee', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>
-                      Arsitek Frontend &amp; Game Dev
+                    <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#38bdf8', fontFamily: 'var(--font-mono)', marginTop: '2px' }}>
+                      Cosmic Software &amp; Game Engineer
                     </p>
                   </div>
                 </div>
@@ -750,9 +750,9 @@ export default function LanyardCard() {
                     </span>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#10b981', fontSize: '0.68rem', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
-                    <ShieldCheck size={13} color="#10b981" />
-                    <span>TERVERIFIKASI</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#38bdf8', fontSize: '0.68rem', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
+                    <ShieldCheck size={13} color="#38bdf8" />
+                    <span>MISSION VERIFIED</span>
                   </div>
                 </div>
               </div>
