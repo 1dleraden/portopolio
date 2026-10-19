@@ -376,7 +376,6 @@ export default function Preloader({ onComplete }) {
                 fontFamily: 'var(--font-mono)',
                 letterSpacing: '0.08em',
                 cursor: 'pointer',
-                animation: 'pulseGlow 2s infinite',
                 transition: 'all 0.2s',
                 transform: 'scale(1)'
               }}
@@ -438,18 +437,7 @@ export default function Preloader({ onComplete }) {
         <span>VELOSITAS ORBITAL: 7.8 KM/S // STABIL</span>
       </div>
 
-      <style jsx>{`
-        @keyframes pulseGlow {
-          0%, 100% {
-            box-shadow: 0 0 25px rgba(6, 182, 212, 0.35), inset 0 0 15px rgba(6, 182, 212, 0.2);
-            border-color: rgba(6, 182, 212, 0.45);
-          }
-          50% {
-            box-shadow: 0 0 35px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.35);
-            border-color: rgba(34, 211, 238, 0.8);
-          }
-        }
-      `}</style>
+
     </div>
   );
 }

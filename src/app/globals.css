@@ -337,28 +337,22 @@ h1, h2, h3, h4, h5, h6 {
   color: #6ee7b7;
 }
 
-/* Glowing Pulsing Status Dot */
+/* Steady Clean Status Dot */
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background-color: var(--accent-emerald);
   position: relative;
+  box-shadow: 0 0 8px var(--accent-emerald);
 }
 
 .status-dot::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  background-color: var(--accent-emerald);
-  animation: pulse-ring 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
-  opacity: 0.75;
+  display: none;
 }
 
 @keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 0.8; }
-  100% { transform: scale(2.2); opacity: 0; }
+  0%, 100% { transform: scale(1); opacity: 1; }
 }
 
 /* Custom Scrollbar */
@@ -567,18 +561,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================================ */
-/* CELESTIAL STARLIGHT GLOW & TWINKLE UTILITIES */
+/* CELESTIAL STARLIGHT GLOW UTILITIES (STEADY, NO BLINKING)     */
 /* ============================================================ */
 @keyframes celestialTwinkle {
   0%, 100% {
-    opacity: 0.55;
-    transform: scale(0.92);
-    filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.4));
-  }
-  50% {
     opacity: 1;
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.95)) drop-shadow(0 0 16px rgba(192, 132, 252, 0.6));
+    transform: none;
+    filter: none;
   }
 }
 
@@ -593,8 +582,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .star-twinkle {
   display: inline-block;
-  animation: celestialTwinkle 2.8s ease-in-out infinite;
-  will-change: transform, opacity;
+  opacity: 1;
 }
 
 .section-tag svg,

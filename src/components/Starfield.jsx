@@ -254,18 +254,17 @@ export default function Starfield() {
     // Major Celestial Star Beacon with Cross Diffraction Spikes
     const drawMajorBeacon = (ctx, star, now) => {
       const { x, y, size, color, rotSpeed, baseRot, spikeLen, hasDiagonal } = star;
-      const pulse = Math.sin(now * star.pulseSpeed + star.pulsePhase);
-      const flare = star.flareMultiplier || 1.0;
-      const currentAlpha = Math.max(0.35, Math.min(1.0, star.opacity + pulse * 0.28));
-      const currentSpike = spikeLen * (1 + pulse * 0.32) * flare;
-      const currentSize = size * (1 + pulse * 0.22) * flare;
+      // Calm steady celestial star without flickering/pulsing
+      const currentAlpha = star.opacity;
+      const currentSpike = spikeLen;
+      const currentSize = size;
       const rotation = baseRot + now * rotSpeed;
 
       ctx.save();
       ctx.translate(x, y);
 
       // 1. Soft radial coronal aura
-      const glowR = currentSize * 5.0 * flare;
+      const glowR = currentSize * 5.0;
       const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, glowR);
       glow.addColorStop(0, color);
       glow.addColorStop(0.35, star.glow || 'rgba(56, 189, 248, 0.4)');
@@ -310,16 +309,6 @@ export default function Starfield() {
       ctx.arc(0, 0, Math.max(1.3, currentSize * 0.9), 0, Math.PI * 2);
       ctx.fill();
 
-      // 5. Supernova Shockwave expansion ring
-      if (star.flareRingRadius > 0 && star.flareRingRadius < 45) {
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1;
-        ctx.globalAlpha = Math.max(0, 1 - star.flareRingRadius / 45);
-        ctx.beginPath();
-        ctx.arc(0, 0, star.flareRingRadius, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
       ctx.restore();
     };
 
@@ -334,22 +323,13 @@ export default function Starfield() {
       // ----------------------------------------
       bgCtx.clearRect(0, 0, width, height);
 
-      // Periodically trigger a Supernova Flare on a random major star
-      if (Date.now() > nextFlareTime) {
-        const targetStar = majorStars[Math.floor(Math.random() * majorStars.length)];
-        targetStar.flareTimer = 60; // 60 frames of flare
-        targetStar.flareMultiplier = 1.85;
-        targetStar.flareRingRadius = 2;
-        nextFlareTime = Date.now() + Math.random() * 4000 + 3000;
-      }
-
       // Periodically spawn shooting meteors
       if (Date.now() > nextMeteorTime) {
         spawnMeteor();
         nextMeteorTime = Date.now() + Math.random() * 3500 + 2000;
       }
 
-      // 1. Draw Micro Stars (Milky Way Dust)
+      // 1. Draw Micro Stars (Milky Way Dust) - Calm steady stars
       for (let i = 0; i < microStars.length; i++) {
         const star = microStars[i];
         star.x += star.speedX;
@@ -359,15 +339,12 @@ export default function Starfield() {
         if (star.y < 0) star.y = height;
         if (star.y > height) star.y = 0;
 
-        const twinkle = Math.sin(now * star.pulseSpeed + star.pulsePhase);
-        const alpha = Math.max(0.12, Math.min(0.85, star.opacity + twinkle * 0.3));
-
         bgCtx.fillStyle = star.color;
-        bgCtx.globalAlpha = alpha;
+        bgCtx.globalAlpha = star.opacity;
         bgCtx.fillRect(star.x, star.y, star.size, star.size);
       }
 
-      // 2. Draw Midground Spectral Stars
+      // 2. Draw Midground Spectral Stars - Calm steady glow without flickering
       for (let i = 0; i < midStars.length; i++) {
         const star = midStars[i];
         star.x += star.speedX;
@@ -387,11 +364,8 @@ export default function Starfield() {
           star.y -= (dy / dist) * force * 0.8;
         }
 
-        const twinkle = Math.sin(now * star.pulseSpeed + star.pulsePhase);
-        const alpha = Math.max(0.2, Math.min(0.95, star.opacity + twinkle * 0.35));
-
         bgCtx.save();
-        bgCtx.globalAlpha = alpha;
+        bgCtx.globalAlpha = star.opacity;
         bgCtx.fillStyle = star.color;
         bgCtx.shadowColor = star.glow;
         bgCtx.shadowBlur = 6;
@@ -431,16 +405,6 @@ export default function Starfield() {
         if (star.x > width) star.x = 0;
         if (star.y < 0) star.y = height;
         if (star.y > height) star.y = 0;
-
-        // Flare decay
-        if (star.flareTimer > 0) {
-          star.flareTimer--;
-          star.flareRingRadius += 1.2;
-          star.flareMultiplier = 1.0 + (star.flareTimer / 60) * 0.85;
-        } else {
-          star.flareMultiplier = 1.0;
-          star.flareRingRadius = 0;
-        }
 
         drawMajorBeacon(bgCtx, star, now);
       }
@@ -535,10 +499,7 @@ export default function Starfield() {
         if (mote.x < -20) mote.x = width + 20;
         if (mote.x > width + 20) mote.x = -20;
 
-        const pulse = Math.sin(now * mote.pulseSpeed + mote.pulsePhase);
-        const alpha = Math.max(0.1, Math.min(0.7, mote.alpha + pulse * 0.25));
-
-        drawStar4Point(fgCtx, mote.x, mote.y, mote.size, mote.rotation, mote.color, alpha);
+        drawStar4Point(fgCtx, mote.x, mote.y, mote.size, mote.rotation, mote.color, mote.alpha);
       }
 
       // 2. Cursor Stardust & Click Nova Burst Particles

@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 60; // Cache on server for max 60 seconds
+
 const GITHUB_USERNAME = '1dleraden';
 
 // Language colors map
@@ -12,10 +15,16 @@ const LANGUAGE_COLORS = {
   CSS: '#563d7c',
   Python: '#3572A5',
   Hack: '#878787',
-  SCSS: '#c6538c'
+  SCSS: '#c6538c',
+  Shell: '#89e051',
+  C: '#555555',
+  'C++': '#f34b7d',
+  Java: '#b07219',
+  Go: '#00ADD8',
+  Rust: '#dea584'
 };
 
-// Rich metadata enhancement for 1dleraden's projects
+// Rich metadata enhancement for 1dleraden's known projects
 const ENHANCED_PROJECT_DATA = {
   arsyavin: {
     customTitle: 'Sistem Informasi Perpustakaan SMKN 1 Ciomas',
@@ -32,7 +41,8 @@ const ENHANCED_PROJECT_DATA = {
     ],
     tech: ['Laravel 12', 'PHP 8.2', 'MySQL', 'Tailwind CSS', 'PHPUnit', 'REST API'],
     image: '/projects/arsyavin.jpg',
-    homepage: null
+    homepage: null,
+    isFeatured: true
   },
   techinf: {
     customTitle: 'TechInf — AI, Coding & Cyber Portal',
@@ -47,7 +57,8 @@ const ENHANCED_PROJECT_DATA = {
     ],
     tech: ['HTML5', 'Modern CSS', 'JavaScript', 'Responsive UI', 'Vercel'],
     image: '/projects/techinf.jpg',
-    homepage: 'https://techinf-wheat.vercel.app'
+    homepage: 'https://techinf-wheat.vercel.app',
+    isFeatured: true
   },
   portopolio: {
     customTitle: 'Ajies Cyber Portfolio V2 — Next.js Masterpiece',
@@ -59,11 +70,12 @@ const ENHANCED_PROJECT_DATA = {
       '3D Interactive Lanyard Card berbasis Three.js / React Three Fiber',
       'Starfield Canvas 2D yang bereaksi terhadap pergerakan mouse',
       'Cyber Dodge playable Mini Game di dalam browser',
-      'Buku tamu interaktif (Kritik & Saran) dengan penyimpanan data lokal'
+      'Buku tamu interaktif (Kritik & Saran) dengan penyimpanan data real-time'
     ],
     tech: ['Next.js 16', 'React 19', 'Canvas 2D', 'Web Audio API', 'Lucide Icons'],
     image: '/projects/devnexus.jpg',
-    homepage: 'https://portopolio-wheat.vercel.app'
+    homepage: 'https://portopolio-wheat.vercel.app',
+    isFeatured: true
   },
   ultah: {
     customTitle: 'Felisha Birthday — Interactive Greetings Experience',
@@ -78,7 +90,8 @@ const ENHANCED_PROJECT_DATA = {
     ],
     tech: ['JavaScript', 'CSS3 Animations', 'Audio API', 'Responsive UI', 'Vercel'],
     image: '/projects/ultah.jpg',
-    homepage: 'https://felisha-birthday.vercel.app'
+    homepage: 'https://felisha-birthday.vercel.app',
+    isFeatured: true
   },
   'crud-admin': {
     customTitle: 'Sistem Manajemen Data Siswa (CRUD Admin)',
@@ -93,7 +106,8 @@ const ENHANCED_PROJECT_DATA = {
     ],
     tech: ['PHP', 'MySQL', 'Bootstrap / SCSS', 'JavaScript'],
     image: '/projects/crud-admin.jpg',
-    homepage: null
+    homepage: null,
+    isFeatured: true
   },
   birthday: {
     customTitle: 'Interactive Birthday Celebration Web',
@@ -107,7 +121,8 @@ const ENHANCED_PROJECT_DATA = {
     ],
     tech: ['JavaScript', 'CSS3', 'Vercel'],
     image: '/projects/ultah.jpg',
-    homepage: 'https://birthday-jade-gamma.vercel.app'
+    homepage: 'https://birthday-jade-gamma.vercel.app',
+    isFeatured: false
   },
   portfolio: {
     customTitle: 'Portofolio Personal V1 (Arsip Klasik)',
@@ -121,43 +136,143 @@ const ENHANCED_PROJECT_DATA = {
     ],
     tech: ['HTML5', 'CSS3', 'JavaScript'],
     image: '/projects/taskforge.jpg',
-    homepage: null
+    homepage: null,
+    isFeatured: false
   }
 };
 
-// In-memory cache
-let cachedData = null;
-let lastCacheTime = 0;
-const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes cache
+// Built-in interactive showcase (local browser-playable lab experiment)
+const LOCAL_SHOWCASE_PROJECTS = [
+  {
+    id: 'cybergame',
+    name: 'cybergame',
+    title: 'Cyber Odyssey — Neon Action Platformer',
+    category: 'game',
+    categoryLabel: 'Game Development',
+    image: '/projects/cybergame.jpg',
+    description: 'Prototipe gim platformer aksi 2D berkecepatan 60 FPS dengan simulasi partikel cuaca neon, collision physics, dan mini game playable langsung di portofolio ini.',
+    detailedDesc: 'Eksplorasi mendalam arsitektur game loop, kalkulasi frame rate independen (delta time), dan deteksi tabrakan presisi. Memadukan estetika retro cyberpunk dengan kontrol responsif dan efek suara sintetis.',
+    features: [
+      'Game loop 60 FPS dengan delta time physics kalkulasi',
+      'Sistem dash evasion, cooldown kemampuan, dan partikel neon',
+      'Dapat dimainkan langsung di browser melalui canvas game arena web ini',
+      'Pelacakan high-score lokal dan efek audio interaktif'
+    ],
+    tech: ['JavaScript', 'Canvas 2D', 'Game Physics', 'Web Audio API'],
+    liveUrl: '#game',
+    githubUrl: 'https://github.com/1dleraden',
+    stars: 0,
+    forks: 0,
+    language: 'JavaScript',
+    languageColor: '#f7df1e',
+    updatedAt: 'Playable Live',
+    relativeTime: 'Live Game',
+    isPlayableDemo: true,
+    isFeatured: true
+  }
+];
 
-export async function GET() {
+// Helper: Format raw repo name into clean humanized title
+function formatTitle(name) {
+  if (!name) return 'Untitle Project';
+  return name
+    .replace(/[-_]+/g, ' ')
+    .split(' ')
+    .filter(Boolean)
+    .map((word) => {
+      const upper = word.toUpperCase();
+      if (['AI', 'API', 'UI', 'UX', 'SMK', 'CRUD', 'ML', 'CSS', 'JS', 'PHP', 'HTML', 'SEO', 'PPLG', 'REST'].includes(upper)) {
+        return upper;
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join(' ');
+}
+
+// Helper: Infer category based on name, topics, and language
+function inferCategory(repo) {
+  const text = `${repo.name} ${(repo.topics || []).join(' ')} ${repo.language || ''} ${repo.description || ''}`.toLowerCase();
+  
+  if (text.includes('game') || text.includes('odyssey') || text.includes('canvas') || text.includes('unity') || text.includes('godot')) {
+    return { category: 'game', label: 'Game Development' };
+  }
+  if (text.includes('creative') || text.includes('music') || text.includes('audio') || text.includes('birthday') || text.includes('ultah') || text.includes('greeting') || text.includes('animat')) {
+    return { category: 'creative', label: 'Creative & Interactive' };
+  }
+  if (text.includes('ai') || text.includes('machine-learning') || text.includes('bot') || text.includes('gpt') || text.includes('nlp')) {
+    return { category: 'ai', label: 'AI & Intelligent Systems' };
+  }
+  return { 
+    category: 'web', 
+    label: repo.language ? `${repo.language} Application` : 'Web Application' 
+  };
+}
+
+// Helper: Human readable relative time in Indonesian
+function getRelativeTime(dateString) {
+  if (!dateString) return 'Baru saja';
+  const now = new Date();
+  const past = new Date(dateString);
+  const diffMs = now - past;
+  const diffSec = Math.floor(diffMs / 1000);
+  const diffMin = Math.floor(diffSec / 60);
+  const diffHour = Math.floor(diffMin / 60);
+  const diffDay = Math.floor(diffHour / 24);
+
+  if (diffSec < 60) return 'Baru saja';
+  if (diffMin < 60) return `${diffMin} mnt lalu`;
+  if (diffHour < 24) return `${diffHour} jam lalu`;
+  if (diffDay === 1) return 'Kemarin';
+  if (diffDay < 14) return `${diffDay} hari lalu`;
+  if (diffDay < 30) return `${Math.floor(diffDay / 7)} minggu lalu`;
+  return new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }).format(past);
+}
+
+// Global cache object so webhooks and refreshes can purge immediately
+if (!globalThis.__github_repos_cache) {
+  globalThis.__github_repos_cache = {
+    data: null,
+    lastFetched: 0
+  };
+}
+
+const CACHE_TTL_MS = 60 * 1000; // 60 seconds
+
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const forceRefresh = searchParams.get('refresh') === 'true';
   const now = Date.now();
 
-  // Return cached data if fresh
-  if (cachedData && (now - lastCacheTime < CACHE_TTL_MS)) {
-    return NextResponse.json(cachedData);
+  // Return cached data if still within TTL and not forcing refresh
+  if (!forceRefresh && globalThis.__github_repos_cache.data && (now - globalThis.__github_repos_cache.lastFetched < CACHE_TTL_MS)) {
+    return NextResponse.json(globalThis.__github_repos_cache.data);
   }
 
   try {
     const headers = {
-      'User-Agent': 'PutraRadenPortfolio/1.0',
+      'User-Agent': 'PutraRadenPortfolio/2.0',
       'Accept': 'application/vnd.github.v3+json'
     };
 
-    // Fetch user profile and repos in parallel
+    // Use GitHub token if configured (boosts rate limit from 60 to 5,000 req/hr)
+    if (process.env.GITHUB_TOKEN) {
+      headers['Authorization'] = `Bearer ${process.env.GITHUB_TOKEN}`;
+    }
+
+    // Fetch user profile and repos sorted by recent push activity
     const [userResponse, reposResponse] = await Promise.all([
       fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
         headers,
-        next: { revalidate: 300 }
+        cache: 'no-store'
       }),
-      fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30`, {
+      fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=100`, {
         headers,
-        next: { revalidate: 300 }
+        cache: 'no-store'
       })
     ]);
 
     if (!reposResponse.ok) {
-      throw new Error(`GitHub API error: ${reposResponse.status}`);
+      throw new Error(`GitHub API returned status ${reposResponse.status}`);
     }
 
     const userData = userResponse.ok ? await userResponse.json() : null;
@@ -167,46 +282,75 @@ export async function GET() {
       throw new Error('Invalid repos response format');
     }
 
-    const repos = rawRepos.map((repo) => {
+    // Process all repositories from GitHub
+    const processedRepos = rawRepos.map((repo) => {
       const enhanced = ENHANCED_PROJECT_DATA[repo.name] || {};
+      const inferred = inferCategory(repo);
       const language = repo.language || (enhanced.tech && enhanced.tech[0]) || 'Code';
-      const languageColor = LANGUAGE_COLORS[language] || '#94a3b8';
+      const languageColor = LANGUAGE_COLORS[language] || '#38bdf8';
 
-      // Format updated time
-      const updatedAt = new Date(repo.updated_at);
+      // Check if project is newly pushed (within last 14 days)
+      const lastPushed = new Date(repo.pushed_at || repo.updated_at);
+      const daysSincePushed = (now - lastPushed.getTime()) / (1000 * 60 * 60 * 24);
+      const isNew = daysSincePushed <= 14;
+
       const formattedDate = new Intl.DateTimeFormat('id-ID', {
         day: 'numeric',
         month: 'short',
         year: 'numeric'
-      }).format(updatedAt);
+      }).format(lastPushed);
+
+      // Tech tags: combine language and GitHub topics
+      const techList = enhanced.tech || [
+        language,
+        ...(repo.topics || []).slice(0, 4),
+        'Git'
+      ].filter(Boolean);
+
+      // High-res preview image
+      // Priority: 1. Curated image -> 2. GitHub dynamic OpenGraph banner
+      const ogBanner = `https://opengraph.githubassets.com/1/${GITHUB_USERNAME}/${repo.name}`;
+      const image = enhanced.image || ogBanner;
 
       return {
         id: repo.name,
         name: repo.name,
-        title: enhanced.customTitle || repo.name,
-        category: enhanced.category || 'web',
-        categoryLabel: enhanced.categoryLabel || `${language} Project`,
-        description: repo.description || enhanced.customDesc || 'Repositori proyek publik di GitHub.',
-        detailedDesc: enhanced.customDesc || repo.description || 'Repositori open-source yang dikembangkan oleh Putra Raden Al Aziz.',
+        title: enhanced.customTitle || formatTitle(repo.name),
+        category: enhanced.category || inferred.category,
+        categoryLabel: enhanced.categoryLabel || inferred.label,
+        description: repo.description || enhanced.customDesc || `Proyek repositori open-source ${repo.name} yang dikembangkan dengan ${language}.`,
+        detailedDesc: enhanced.customDesc || repo.description || `Repositori open-source publik ${repo.name} yang dikembangkan oleh Putra Raden Al Aziz di GitHub.`,
         features: enhanced.features || [
           `Bahasa pemrograman utama: ${language}`,
-          `Branch utama: ${repo.default_branch || 'main'}`,
-          `Status repositori publik di GitHub`,
-          `Dapat di-clone dan dikembangkan lebih lanjut`
+          `Default branch: ${repo.default_branch || 'main'}`,
+          `Status repositori publik GitHub (${repo.visibility || 'public'})`,
+          repo.homepage ? `Live deployment: ${repo.homepage}` : `Dapat di-clone via: git clone ${repo.clone_url || repo.html_url}`
         ],
-        tech: enhanced.tech || (language ? [language, 'Git', 'GitHub'] : ['Git', 'GitHub']),
-        image: enhanced.image || '/projects/devnexus.jpg',
+        tech: techList,
+        image,
         stars: repo.stargazers_count || 0,
         forks: repo.forks_count || 0,
         language,
         languageColor,
         githubUrl: repo.html_url || `https://github.com/${GITHUB_USERNAME}/${repo.name}`,
+        cloneUrl: repo.clone_url || `https://github.com/${GITHUB_USERNAME}/${repo.name}.git`,
         liveUrl: repo.homepage || enhanced.homepage || null,
         updatedAt: formattedDate,
-        rawUpdatedAt: repo.updated_at,
+        rawUpdatedAt: repo.pushed_at || repo.updated_at,
+        relativeTime: getRelativeTime(repo.pushed_at || repo.updated_at),
         isFork: repo.fork,
+        isNew,
+        isFeatured: enhanced.isFeatured !== undefined ? enhanced.isFeatured : isNew,
         topics: repo.topics || []
       };
+    });
+
+    // Merge with interactive showcase projects (like cybergame) if not already in repos
+    const combinedRepos = [...processedRepos];
+    LOCAL_SHOWCASE_PROJECTS.forEach((showcase) => {
+      if (!combinedRepos.some(r => r.id === showcase.id)) {
+        combinedRepos.push(showcase);
+      }
     });
 
     const result = {
@@ -216,24 +360,33 @@ export async function GET() {
         bio: userData?.bio || 'Siswa PPLG & Junior Web Developer',
         avatarUrl: userData?.avatar_url || 'https://avatars.githubusercontent.com/u/231167471?v=4',
         htmlUrl: `https://github.com/${GITHUB_USERNAME}`,
-        publicRepos: userData?.public_repos || repos.length,
+        publicRepos: userData?.public_repos || rawRepos.length,
         followers: userData?.followers || 2,
         following: userData?.following || 2
       },
-      repos,
-      totalRepos: repos.length,
+      repos: combinedRepos,
+      totalRepos: rawRepos.length,
       connected: true,
       lastSynced: new Date().toISOString()
     };
 
-    cachedData = result;
-    lastCacheTime = now;
+    // Store in global cache
+    globalThis.__github_repos_cache.data = result;
+    globalThis.__github_repos_cache.lastFetched = now;
 
     return NextResponse.json(result);
   } catch (error) {
     console.error('Failed to fetch live GitHub data:', error);
 
-    // Return high quality fallback built with known GitHub repos
+    // If cache existed from earlier, return stale cache instead of failure
+    if (globalThis.__github_repos_cache.data) {
+      return NextResponse.json({
+        ...globalThis.__github_repos_cache.data,
+        isStale: true
+      });
+    }
+
+    // High quality fallback
     const fallbackRepos = Object.entries(ENHANCED_PROJECT_DATA).map(([repoName, meta]) => {
       const language = meta.tech[0] || 'JavaScript';
       return {
@@ -250,14 +403,25 @@ export async function GET() {
         stars: 0,
         forks: repoName === 'arsyavin' ? 1 : 0,
         language,
-        languageColor: LANGUAGE_COLORS[language] || '#94a3b8',
+        languageColor: LANGUAGE_COLORS[language] || '#38bdf8',
         githubUrl: `https://github.com/${GITHUB_USERNAME}/${repoName}`,
+        cloneUrl: `https://github.com/${GITHUB_USERNAME}/${repoName}.git`,
         liveUrl: meta.homepage,
         updatedAt: 'Terbaru',
+        relativeTime: 'Live Repo',
         rawUpdatedAt: new Date().toISOString(),
         isFork: false,
+        isNew: false,
+        isFeatured: meta.isFeatured,
         topics: []
       };
+    });
+
+    // Append local showcase
+    LOCAL_SHOWCASE_PROJECTS.forEach((showcase) => {
+      if (!fallbackRepos.some(r => r.id === showcase.id)) {
+        fallbackRepos.push(showcase);
+      }
     });
 
     return NextResponse.json({

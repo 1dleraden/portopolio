@@ -232,9 +232,9 @@ export default function AboutBento() {
                   </span>
                   {audioPlaying ? (
                     <div style={{ display: 'flex', gap: '3px', alignItems: 'flex-end', height: '16px' }}>
-                      <div style={{ width: '3px', height: '14px', background: '#38bdf8', animation: 'pulse-ring 1s infinite alternate' }} />
-                      <div style={{ width: '3px', height: '8px', background: '#c084fc', animation: 'pulse-ring 1.3s infinite alternate' }} />
-                      <div style={{ width: '3px', height: '16px', background: '#38bdf8', animation: 'pulse-ring 0.9s infinite alternate' }} />
+                      <div style={{ width: '3px', height: '14px', background: '#38bdf8', borderRadius: '1px' }} />
+                      <div style={{ width: '3px', height: '8px', background: '#c084fc', borderRadius: '1px' }} />
+                      <div style={{ width: '3px', height: '16px', background: '#38bdf8', borderRadius: '1px' }} />
                     </div>
                   ) : null}
                 </div>
